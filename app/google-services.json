@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "381209647603",
+    "firebase_url": "https://smarternship-7f52d-default-rtdb.firebaseio.com",
+    "project_id": "smarternship-7f52d",
+    "storage_bucket": "smarternship-7f52d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381209647603:android:cd0fcb8fd149d575441a86",
+        "android_client_info": {
+          "package_name": "com.example.smarternships"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381209647603-fttdsfjl201la0g5er76iu4aehpbpav2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL-hKdmKIztqQglCbhmVIGBToWWBXwEzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381209647603-fttdsfjl201la0g5er76iu4aehpbpav2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
