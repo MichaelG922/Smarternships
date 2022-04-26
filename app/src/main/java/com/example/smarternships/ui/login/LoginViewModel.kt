@@ -1,9 +1,11 @@
 package com.example.smarternships.ui.login
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
+import androidx.core.content.ContextCompat.startActivity
 import com.example.smarternships.data.LoginRepository
 import com.example.smarternships.data.Result
 
