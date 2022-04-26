@@ -7,11 +7,21 @@
       android:scaleY="1.4"
       android:translateX="-21.6"
       android:translateY="-21.6">
-      <path
-          android:fillColor="#FEDBD0"
-          android:fillType="nonZero"
-          android:pathData="M0,0h108v108h-108z"
-          android:strokeWidth="1"
-          android:strokeColor="#00000000" />
+    <group android:scaleX="1.4"
+        android:scaleY="1.4"
+        android:translateX="-21.6"
+        android:translateY="-21.6">
+      <group android:scaleX="1.4"
+          android:scaleY="1.4"
+          android:translateX="-21.6"
+          android:translateY="-21.6">
+          <path
+              android:fillColor="@color/white"
+              android:fillType="nonZero"
+              android:pathData="M0,0h108v108h-108z"
+              android:strokeWidth="1"
+              android:strokeColor="#00000000" />
+      </group>
+    </group>
   </group>
 </vector>
