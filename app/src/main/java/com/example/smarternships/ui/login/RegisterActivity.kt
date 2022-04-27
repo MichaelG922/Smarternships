@@ -1,50 +1,50 @@
 package com.example.smarternships.ui.login
 
 import android.app.Activity
-import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import com.example.smarternships.databinding.ActivityLoginBinding
+import com.example.smarternships.databinding.ActivityRegisterBinding
 
 import com.example.smarternships.R
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val username = binding.username
         val password = binding.password
-        val login = binding.login
-        val register = binding.register
+
+        //TODO: confirm password field doesn't work @ all
+      //  val confirm_pass = binding.confirm_pass
+        val create = binding.create
         val loading = binding.loading
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.loginFormState.observe(this@RegisterActivity, Observer {
             val loginState = it ?: return@Observer
 
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
+            // disable login button unless all fields valid
+            create?.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
@@ -52,9 +52,12 @@ class LoginActivity : AppCompatActivity() {
             if (loginState.passwordError != null) {
                 password.error = getString(loginState.passwordError)
             }
+//            if(loginState.confirmPassError != null){
+//                confirm_pass.error = getString(loginState.confirmPassError)
+//            }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this@RegisterActivity, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
@@ -64,6 +67,9 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
             }
+//            if(password != confirm_pass){
+//                showLoginFailed(loginResult.error!!)
+//            }
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
@@ -96,33 +102,13 @@ class LoginActivity : AppCompatActivity() {
                 false
             }
 
-            login.setOnClickListener {
+            create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
 
-                //TODO: handle login
-            }
-
-            //enables create button, opens registering activity
-            register?.isEnabled = isEnabled
-
-            register?.setOnClickListener{
-                val regIntent = Intent(this@LoginActivity,RegisterActivity::class.java)
-                getResult.launch(regIntent)
+//                loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
     }
-
-    //TODO: open the actual app once signed in, just prints blah.
-    // this handles after registeractivity is complete
-    private val getResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                Toast.makeText(applicationContext, "blah", Toast.LENGTH_SHORT).show()
-            }
-        }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
@@ -140,17 +126,3 @@ class LoginActivity : AppCompatActivity() {
     }
 }
 
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
-}
