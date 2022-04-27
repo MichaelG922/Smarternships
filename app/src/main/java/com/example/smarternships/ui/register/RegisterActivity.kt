@@ -1,4 +1,4 @@
-package com.example.smarternships.ui.login
+package com.example.smarternships.ui.register
 
 import android.app.Activity
 import androidx.lifecycle.Observer
@@ -6,20 +6,18 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.Toast
 import com.example.smarternships.databinding.ActivityRegisterBinding
 
 import com.example.smarternships.R
+import com.example.smarternships.ui.login.LoggedInUserView
+import com.example.smarternships.ui.login.afterTextChanged
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var registerViewModel: RegisterViewModel
     private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,45 +29,40 @@ class RegisterActivity : AppCompatActivity() {
 
         val username = binding.username
         val password = binding.password
-
-        //TODO: confirm password field doesn't work @ all
-      //  val confirm_pass = binding.confirm_pass
+        val confirmpass = binding.confirmPass
         val create = binding.create
         val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        registerViewModel = ViewModelProvider(this, RegisterModelFactory())
+            .get(RegisterViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@RegisterActivity, Observer {
-            val loginState = it ?: return@Observer
+        registerViewModel.registerFormState.observe(this@RegisterActivity, Observer {
+            val registerState = it ?: return@Observer
 
             // disable login button unless all fields valid
-            create?.isEnabled = loginState.isDataValid
+            create?.isEnabled = registerState.isDataValid
 
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
+            if (registerState.usernameError != null) {
+                username.error = getString(registerState.usernameError)
             }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
+            if (registerState.passwordError != null) {
+                password.error = getString(registerState.passwordError)
             }
-//            if(loginState.confirmPassError != null){
-//                confirm_pass.error = getString(loginState.confirmPassError)
-//            }
+            if(registerState.confPassError != null){
+                confirmpass?.error = getString(registerState.confPassError!!)
+            }
         })
 
-        loginViewModel.loginResult.observe(this@RegisterActivity, Observer {
-            val loginResult = it ?: return@Observer
+        registerViewModel.registerResult.observe(this@RegisterActivity, Observer {
+            val registerResult = it ?: return@Observer
 
             loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
+            if (registerResult.error != null) {
+                showLoginFailed(registerResult.error)
             }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+            if (registerResult.success != null) {
+                updateUiWithUser(registerResult.success)
             }
-//            if(password != confirm_pass){
-//                showLoginFailed(loginResult.error!!)
-//            }
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
@@ -77,26 +70,39 @@ class RegisterActivity : AppCompatActivity() {
         })
 
         username.afterTextChanged {
-            loginViewModel.loginDataChanged(
+            registerViewModel.registerDataChanged(
                 username.text.toString(),
-                password.text.toString()
+                password.text.toString(),
+                confirmpass?.text.toString()
             )
         }
 
         password.apply {
             afterTextChanged {
-                loginViewModel.loginDataChanged(
+                registerViewModel.registerDataChanged(
                     username.text.toString(),
-                    password.text.toString()
+                    password.text.toString(),
+                    confirmpass?.text.toString()
                 )
+            }
+
+            confirmpass.apply {
+                afterTextChanged {
+                    registerViewModel.registerDataChanged(
+                        username.text.toString(),
+                        password.text.toString(),
+                        confirmpass?.text.toString()
+                    )
+                }
             }
 
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
+                        registerViewModel.register(
                             username.text.toString(),
-                            password.text.toString()
+                            password.text.toString(),
+                            confirmpass?.text.toString()
                         )
                 }
                 false
@@ -104,11 +110,11 @@ class RegisterActivity : AppCompatActivity() {
 
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
-
-//                loginViewModel.login(username.text.toString(), password.text.toString())
+                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString())
+                //TODO:continue registration
             }
-        }
     }
+}
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)

@@ -9,7 +9,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -18,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.smarternships.databinding.ActivityLoginBinding
 
 import com.example.smarternships.R
+import com.example.smarternships.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
             register?.isEnabled = isEnabled
 
             register?.setOnClickListener{
-                val regIntent = Intent(this@LoginActivity,RegisterActivity::class.java)
+                val regIntent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 getResult.launch(regIntent)
             }
         }
