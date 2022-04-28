@@ -11,7 +11,7 @@ class RegisterDataSource {
     fun register(username: String, password: String, confirmPass: String): Result<RegisteredUser> {
         try {
             // TODO: handle loggedInUser authentication
-            val fakeUser = RegisteredUser(java.util.UUID.randomUUID().toString(), " Let's get set up.")
+            val fakeUser = RegisteredUser(java.util.UUID.randomUUID().toString(), "Let's get set up.")
             return Result.Success(fakeUser)
         } catch (e: Throwable) {
             return Result.Error(IOException("Error registering in", e))

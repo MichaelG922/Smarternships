@@ -17,4 +17,8 @@
     <string name="title_activity_register"></string>
     <string name="invalid_conf">Passwords must match</string>
     <string name="reg_failed">Registration failed</string>
+    <string name="setup_string">Let\'s get set up.</string>
+    <string name="who_string">Who are you?</string>
+    <string name="intern_button">Intern</string>
+    <string name="employer_button">Employer</string>
 </resources>

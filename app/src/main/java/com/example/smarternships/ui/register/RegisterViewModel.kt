@@ -46,7 +46,7 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
         return if (username.contains('@')) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
         } else {
-            username.isNotBlank()
+            false
         }
     }
 

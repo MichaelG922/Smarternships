@@ -1,6 +1,7 @@
 package com.example.smarternships.ui.register
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.Toast
 import com.example.smarternships.databinding.ActivityRegisterBinding
 
 import com.example.smarternships.R
+import com.example.smarternships.ui.createaccount.CreateAccountActivity
 import com.example.smarternships.ui.login.LoggedInUserView
 import com.example.smarternships.ui.login.afterTextChanged
 
@@ -111,7 +113,7 @@ class RegisterActivity : AppCompatActivity() {
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString())
-                //TODO:continue registration
+                startActivity(Intent(this@RegisterActivity, CreateAccountActivity::class.java))
             }
     }
 }
