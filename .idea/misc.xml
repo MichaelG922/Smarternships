@@ -10,12 +10,17 @@
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/drawable/logo.xml" value="0.1" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1606425702811245" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1875" />
-        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_login.xml" value="0.16" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/content_scrolling.xml" value="0.25" />
-        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/create_account.xml" value="0.2" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/smrt_main_activity.xml" value="0.1" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.108" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1390625" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout-w936dp/activity_login.xml" value="0.12158469945355191" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/activity_login.xml" value="0.1469098277608916" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/create_account.xml" value="0.1469098277608916" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_account.xml" value="0.24864130434782608" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/menu/menu_home.xml" value="0.29743589743589743" />
       </map>
     </option>
   </component>

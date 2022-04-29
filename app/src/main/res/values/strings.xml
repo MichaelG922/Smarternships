@@ -11,6 +11,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="smarternship_logo_description">Smarternship Logo</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="register_button">Create account</string>
     <string name="register_header">Account Registration</string>
     <string name="confirm_password">Confirm Password</string>
