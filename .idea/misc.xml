@@ -21,6 +21,17 @@
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/create_account.xml" value="0.1469098277608916" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_account.xml" value="0.24864130434782608" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/menu/menu_home.xml" value="0.29743589743589743" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2" />
+        <entry key="app/src/main/res/drawable/logo.xml" value="0.2" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.13253012048192772" />
+        <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.1359289617486339" />
+        <entry key="app/src/main/res/layout-w936dp/activity_register.xml" value="0.1359289617486339" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1802536231884058" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/create_account.xml" value="0.1802536231884058" />
+        <entry key="app/src/main/res/layout/create_job.xml" value="0.25869565217391305" />
+        <entry key="app/src/main/res/layout/view_account.xml" value="0.1802536231884058" />
+        <entry key="app/src/main/res/menu/menu_home.xml" value="0.20625" />
       </map>
     </option>
   </component>
