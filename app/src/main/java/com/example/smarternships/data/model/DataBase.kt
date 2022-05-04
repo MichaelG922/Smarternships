@@ -12,6 +12,11 @@ class DataBase {
             var users = FirebaseDatabase.getInstance().getReference("users")
             users.child(id).child("username").setValue(name)
         }
+
+        public fun createUser(id: String, user: User) {
+            var users = FirebaseDatabase.getInstance().getReference("users")
+            users.child(id).setValue(user)
+        }
     }
 
 

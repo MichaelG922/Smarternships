@@ -13,7 +13,7 @@ import android.widget.Toast
 import com.example.smarternships.databinding.ActivityRegisterBinding
 
 import com.example.smarternships.R
-import com.example.smarternships.ui.createaccount.CreateAccountActivity
+import com.example.smarternships.ui.account.CreateAccountActivity
 import com.example.smarternships.ui.login.LoggedInUserView
 import com.example.smarternships.ui.login.afterTextChanged
 

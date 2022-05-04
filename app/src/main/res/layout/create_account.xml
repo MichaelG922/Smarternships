@@ -17,25 +17,24 @@
         android:layout_height="64dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/logo"
         android:contentDescription="@string/smarternship_logo_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/setup_phrase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="135dp"
         android:layout_marginTop="110dp"
         android:text="@string/setup_string"
         android:textAllCaps="false"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/question"
@@ -55,7 +54,6 @@
         android:layout_height="150dp"
         android:layout_gravity="start"
         android:layout_marginBottom="250dp"
-        android:enabled="false"
         android:text="@string/intern_button"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +67,6 @@
         android:layout_height="150dp"
         android:layout_gravity="start"
         android:layout_marginBottom="250dp"
-        android:enabled="false"
         android:text="@string/employer_button"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
 
-class ViewAccount: AppCompatActivity() {
+class ViewAccountActivity: AppCompatActivity() {
     private lateinit var mTextName: EditText
     private lateinit var mSaveButton: Button
 
