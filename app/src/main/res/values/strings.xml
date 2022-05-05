@@ -28,5 +28,6 @@
     <string name="prompt_create_job_timeframe">Job Time Frame</string>
     <string name="prompt_create_job_description">Job Description</string>
     <string name="create_job_button">Create Job</string>
+    <string name="apply_string">Apply</string>
 
 </resources>
