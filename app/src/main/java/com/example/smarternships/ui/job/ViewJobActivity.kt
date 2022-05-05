@@ -11,6 +11,7 @@ class ViewJobActivity : AppCompatActivity() {
     private lateinit var mJobName: EditText
     private lateinit var mCompanyName: EditText
     private lateinit var mTimeFrame: EditText
+    private lateinit var mIntern: EditText
     private lateinit var mJobDescription : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ class ViewJobActivity : AppCompatActivity() {
 
         //TODO - grab the job information using DB
         mJobName = findViewById<View>(R.id.job_name) as EditText
-
+        mIntern = findViewById<View>(R.id.intern_name) as EditText
         mCompanyName = findViewById<View>(R.id.company_name) as EditText
         mTimeFrame = findViewById<View>(R.id.time_frame) as EditText
         mJobDescription = findViewById<View>(R.id.description) as EditText
