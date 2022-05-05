@@ -23,7 +23,7 @@ class CreateJobActivity: AppCompatActivity() {
     private lateinit var mJobTimeFrameField : EditText
     private lateinit var mJobDescriptionField : EditText
     override fun onCreate(savedInstanceState: Bundle?){
-
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_job)
 

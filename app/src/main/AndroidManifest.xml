@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smarternships">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,14 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Smarternships">
         <activity
+            android:name=".ui.job.ViewJobActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.account.CreateAccountActivity"
             android:exported="false" />
         <activity
             android:name=".ui.account.CreateAccountDetailsActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.account.ViewAccountActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false"
@@ -30,6 +33,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
