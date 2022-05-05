@@ -39,26 +39,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/time_frame"
+        android:id="@+id/intern_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
+        android:autofillHints="Intern Name"
+        android:hint="Intern Name"
+        android:inputType="none"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/time_frame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
         android:layout_marginRight="100dp"
         android:autofillHints="@string/prompt_create_job_name"
         android:hint="Time Frame"
         android:inputType="none"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/job_description"
-        android:layout_height="300dp"
+        android:id="@+id/description"
+        android:layout_height="200dp"
         android:layout_width="0dp"
-        android:layout_marginTop="340dp"
-        android:hint="Job Description"
-        android:autofillHints="@string/prompt_create_job_description"
+        android:layout_marginTop="400dp"
+        android:hint="Description"
         android:inputType="none"
         android:gravity="top|start"
         android:selectAllOnFocus="true"
