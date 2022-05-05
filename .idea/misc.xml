@@ -12,10 +12,14 @@
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1875" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_login.xml" value="0.16" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_view_job.xml" value="0.264" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/apply_job.xml" value="0.25" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/content_scrolling.xml" value="0.25" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/create_account.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/create_account_details.xml" value="0.25" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/create_job.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/edit_account.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/manage_job.xml" value="0.25" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/smrt_main_activity.xml" value="0.1" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/view_account.xml" value="0.25" />
         <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/menu/menu_home.xml" value="0.25" />
@@ -33,10 +37,8 @@
         <entry key="app/src/main/res/layout-w936dp/activity_register.xml" value="0.1359289617486339" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1802536231884058" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_view_job.xml" value="0.2617753623188406" />
         <entry key="app/src/main/res/layout/create_account.xml" value="0.1802536231884058" />
         <entry key="app/src/main/res/layout/create_job.xml" value="0.25869565217391305" />
-        <entry key="app/src/main/res/layout/manage_job.xml" value="0.2617753623188406" />
         <entry key="app/src/main/res/layout/view_account.xml" value="0.1802536231884058" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.20625" />
       </map>

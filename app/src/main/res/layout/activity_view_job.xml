@@ -26,29 +26,51 @@
 
     <EditText
         android:id="@+id/company_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="238dp"
+        android:layout_height="45dp"
         android:layout_marginTop="216dp"
         android:autofillHints="@string/prompt_create_job_name"
         android:hint="Company Name"
         android:inputType="none"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/view_company"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:text="View"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/intern_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="240dp"
+        android:layout_height="47dp"
         android:layout_marginTop="276dp"
         android:autofillHints="Intern Name"
         android:hint="Intern Name"
         android:inputType="none"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.005"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/view_intern"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="276dp"
+        android:text="View"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,7 +90,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/description"
+        android:id="@+id/view_description"
         android:layout_height="200dp"
         android:layout_width="0dp"
         android:layout_marginTop="400dp"

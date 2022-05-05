@@ -15,6 +15,7 @@ class ApplyJobActivity : AppCompatActivity() {
     private lateinit var mTimeFrame: EditText
     private lateinit var mJobDescription : EditText
     private lateinit var mApplyButton: Button
+    private lateinit var mViewCompanyButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,16 +24,21 @@ class ApplyJobActivity : AppCompatActivity() {
 
         //TODO - populate job info from DB
         // button operation -> (should go back to prev activity)
-        mJobName = findViewById<View>(R.id.job_name) as EditText
-        mCompanyName = findViewById<View>(R.id.company_name) as EditText
-        mTimeFrame = findViewById<View>(R.id.time_frame) as EditText
-        mJobDescription = findViewById<View>(R.id.description) as EditText
+        mJobName = findViewById<View>(R.id.apply_job_name) as EditText
+        mCompanyName = findViewById<View>(R.id.apply_company_name) as EditText
+        mTimeFrame = findViewById<View>(R.id.apply_time_frame) as EditText
+        mJobDescription = findViewById<View>(R.id.apply_description) as EditText
         mApplyButton = findViewById<View>(R.id.apply_button) as Button
+        mViewCompanyButton = findViewById<View>(R.id.apply_view_company) as Button
 
         mApplyButton.setOnClickListener {
             Toast.makeText(applicationContext, "Applied to ${mJobName.text}!", Toast.LENGTH_SHORT).show()
             //submit to database
             setResult(RESULT_OK)
+        }
+
+        mViewCompanyButton.setOnClickListener {
+            //go to company page
         }
     }
 }

@@ -12,7 +12,7 @@
     tools:context=".ui.account.ViewAccountActivity">
 
     <EditText
-        android:id="@+id/job_name"
+        android:id="@+id/apply_job_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
@@ -25,21 +25,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/company_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/apply_company_name"
+        android:layout_width="261dp"
+        android:layout_height="0dp"
         android:layout_marginTop="216dp"
         android:autofillHints="@string/prompt_create_job_name"
         android:hint="Company Name"
         android:inputType="none"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/apply_view_company"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:text="View"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/time_frame"
+        android:id="@+id/apply_time_frame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
@@ -54,7 +65,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/description"
+        android:id="@+id/apply_description"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginTop="336dp"
