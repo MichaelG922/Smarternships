@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ui.job.ViewJobsInternList">
+    tools:context=".ui.job.CompanyApplicantList">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
-        android:text="Available Jobs"
+        android:text="Applicants"
         android:textAllCaps="true"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         tools:layout_editor_absoluteY="86dp">
 
         <TextView
-            android:id="@+id/feed_view"
+            android:id="@+id/applicant_feed_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"

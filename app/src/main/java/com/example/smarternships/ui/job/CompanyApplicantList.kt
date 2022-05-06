@@ -6,16 +6,16 @@ import android.view.View
 import android.widget.TextView
 import com.example.smarternships.R
 
-class ViewJobsInternActivity : AppCompatActivity() {
+class CompanyApplicantList : AppCompatActivity() {
 
     private lateinit var mTextView : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.view_jobs_intern)
+        setContentView(R.layout.company_applicant_list)
 
-        mTextView = findViewById<View>(R.id.feed_view) as TextView
-        //TODO- populate scrollable view with all jobs
+        mTextView = findViewById<View>(R.id.applicant_feed_view) as TextView
+        //TODO- populate scrollable view with all applicants
     }
 }
