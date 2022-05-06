@@ -1,5 +1,6 @@
 package com.example.smarternships.ui.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -26,7 +27,7 @@ class CreateAccountDetailsActivity : AppCompatActivity() {
         val i = intent
         val b = i.extras
 
-        val isIntern = b?.getBoolean("ISINTERN");
+        val isIntern = b?.getBoolean("ISINTERN")
 
         mContinueButton = findViewById<View>(R.id.continue_button) as Button
         mNameTextView = findViewById<View>(R.id.name_editText) as EditText
@@ -59,13 +60,13 @@ class CreateAccountDetailsActivity : AppCompatActivity() {
                     ).show();
                 }
             }else{
-                var user = isIntern?.let { isInt -> User(mNameString, mDescriptionString, isInt) }
+                var user = isIntern?.let { isInt -> User(mNameString, "email@test.com", mDescriptionString, isInt) }
                 if (user != null) {
                     DataBase.createUser("2", user)
-                    Toast.makeText(applicationContext, "Account Created", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ViewAccountActivity::class.java)
+                    intent.putExtra("USERID", "2")
+                    startActivity(intent)
                 }
-                // TODO send user to their account
-                // startActivity(Intent())
             }
         }
     }
