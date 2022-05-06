@@ -1,7 +1,7 @@
 package com.example.smarternships.ui.account
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,22 +11,72 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.OnGetDataListener
+import com.example.smarternships.data.model.User
+import com.google.firebase.database.DataSnapshot
+
 
 class ViewAccountActivity: AppCompatActivity() {
     private lateinit var mTextName: EditText
-    private lateinit var mSaveButton: Button
+    private lateinit var mTextEmail: EditText
+    private lateinit var mTextDescription: EditText
+    private lateinit var mViewCurrentJobs: Button
+    private lateinit var mViewPriorJobs: Button
+    private lateinit var mEditButton: Button
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_account)
 
-        mTextName = findViewById<View>(R.id.text_name) as EditText
-        mSaveButton = findViewById<View>(R.id.save_button) as Button
+        val i = intent
+        val e = i.extras
 
-        mSaveButton.setOnClickListener {
-            var name = mTextName.text.toString()
-            Toast.makeText(applicationContext, "Save Name $name", Toast.LENGTH_SHORT).show()
-            DataBase.setUserName("1", name)
+        mTextName = findViewById<View>(R.id.name) as EditText
+        mTextEmail = findViewById<View>(R.id.email) as EditText
+        mTextDescription = findViewById<View>(R.id.description) as EditText
+
+        mViewCurrentJobs = findViewById<View>(R.id.viewCurrentJobs) as Button
+        mViewPriorJobs = findViewById<View>(R.id.viewPriorJobs) as Button
+        mEditButton = findViewById<View>(R.id.edit_button) as Button
+
+        val userID = e?.getString("USERID");
+
+        if (userID != null) {
+            Toast.makeText(applicationContext, userID, Toast.LENGTH_SHORT).show()
+
+            DataBase.getUser(userID, object : OnGetDataListener {
+                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    var user = dataSnapshot?.getValue(User::class.java)
+                    if (user != null) {
+                        mTextName.setText(user.userName)
+                        mTextEmail.setText(user.userEmail)
+                        mTextDescription.setText(user.userDescription)
+                    }
+                }
+
+                override fun onStart() {
+                    //when starting
+                    Log.d("ONSTART", "Started")
+                }
+
+                override fun onFailure() {
+                    Log.d("onFailure", "Failed")
+                }
+            })
+        }
+
+        // TODO setup check to see if user being viewed is the logged in user. If it is not then disable and hide edit button
+
+        mViewCurrentJobs.setOnClickListener {
+            Toast.makeText(applicationContext, "Redirect to users Current Jobs", Toast.LENGTH_SHORT).show()
+        }
+
+        mViewPriorJobs.setOnClickListener {
+            Toast.makeText(applicationContext, "Redirect to users Prior Jobs", Toast.LENGTH_SHORT).show()
+        }
+
+        mEditButton.setOnClickListener {
+            Toast.makeText(applicationContext, "Redirect to users Edit Account", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -23,7 +23,7 @@ class ViewJobActivity : AppCompatActivity() {
 
         mCompanyName = findViewById<View>(R.id.company_name) as EditText
         mTimeFrame = findViewById<View>(R.id.time_frame) as EditText
-        mJobDescription = findViewById<View>(R.id.job_description) as EditText
+        mJobDescription = findViewById<View>(R.id.description) as EditText
 
     }
 }
