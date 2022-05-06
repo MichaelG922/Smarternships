@@ -16,6 +16,7 @@ class ViewJobActivity : AppCompatActivity() {
     private lateinit var mJobDescription : EditText
     private lateinit var mViewIntern: Button
     private lateinit var mViewCompany: Button
+    private lateinit var mApplyButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,16 @@ class ViewJobActivity : AppCompatActivity() {
 
         mViewIntern = findViewById<View>(R.id.view_intern) as Button
         mViewCompany = findViewById<View>(R.id.view_company) as Button
+        mApplyButton = findViewById<View>(R.id.apply_button) as Button
+
+        val i = intent
+        val b = i.extras
+
+        val isIntern = b?.getBoolean("ISINTERN")
+
+        if(isIntern == false){
+            mApplyButton.visibility = View.INVISIBLE
+        }
 
         mViewCompany.setOnClickListener {
             //TODO - go to company account
@@ -38,6 +49,10 @@ class ViewJobActivity : AppCompatActivity() {
 
         mViewIntern.setOnClickListener {
             //todo - go to intern account
+        }
+
+        mApplyButton.setOnClickListener {
+            //todo - applied to job
         }
 
     }
