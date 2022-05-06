@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import com.example.smarternships.R
 
-class ViewJobActivity : AppCompatActivity() {
+class ViewJobCompanyActivity : AppCompatActivity() {
 
     private lateinit var mJobName: EditText
     private lateinit var mCompanyName: EditText
@@ -16,11 +16,13 @@ class ViewJobActivity : AppCompatActivity() {
     private lateinit var mJobDescription : EditText
     private lateinit var mViewIntern: Button
     private lateinit var mViewCompany: Button
+    private lateinit var mApplicantsButton: Button
+    private lateinit var mManageButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_view_job)
+        setContentView(R.layout.view_job_company)
 
         //TODO - grab the job information using DB
         mJobName = findViewById<View>(R.id.job_name) as EditText
@@ -30,6 +32,8 @@ class ViewJobActivity : AppCompatActivity() {
         mJobDescription = findViewById<View>(R.id.view_description) as EditText
         mViewIntern = findViewById<View>(R.id.view_intern) as Button
         mViewCompany = findViewById<View>(R.id.view_company) as Button
+        mApplicantsButton = findViewById<View>(R.id.view_applicants) as Button
+        mManageButton = findViewById<View>(R.id.manage_button) as Button
 
         mViewCompany.setOnClickListener {
             //TODO - go to company account
@@ -39,5 +43,14 @@ class ViewJobActivity : AppCompatActivity() {
             //todo - go to intern account
         }
 
+        mApplicantsButton.setOnClickListener {
+            //todo - open applicants page
+            //startIntent(Intent())
+        }
+
+        mManageButton.setOnClickListener {
+            //todo - open manage job page
+            //startIntent(Intent())
+        }
     }
 }

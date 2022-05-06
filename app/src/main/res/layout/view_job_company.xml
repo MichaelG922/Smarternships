@@ -9,10 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ui.job.ApplyJobActivity">
+    tools:context=".ui.job.ViewJobCompanyActivity">
 
     <EditText
-        android:id="@+id/apply_job_name"
+        android:id="@+id/job_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
@@ -25,9 +25,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/apply_company_name"
-        android:layout_width="261dp"
-        android:layout_height="0dp"
+        android:id="@+id/company_name"
+        android:layout_width="238dp"
+        android:layout_height="45dp"
         android:layout_marginTop="216dp"
         android:autofillHints="@string/prompt_create_job_name"
         android:hint="Company Name"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/apply_view_company"
+        android:id="@+id/view_company"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="216dp"
@@ -50,32 +50,57 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/apply_time_frame"
-        android:layout_width="0dp"
+        android:id="@+id/intern_name"
+        android:layout_width="240dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="276dp"
+        android:autofillHints="Intern Name"
+        android:hint="Intern Name/None"
+        android:inputType="none"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.005"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/view_intern"
+        android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
+        android:text="View"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/time_frame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
         android:layout_marginRight="100dp"
         android:autofillHints="@string/prompt_create_job_name"
         android:hint="Time Frame"
         android:inputType="none"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/apply_description"
-        android:layout_width="0dp"
+        android:id="@+id/view_description"
         android:layout_height="200dp"
-        android:layout_marginTop="336dp"
-        android:gravity="top|start"
+        android:layout_width="0dp"
+        android:layout_marginTop="400dp"
         android:hint="Description"
         android:inputType="none"
+        android:gravity="top|start"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -93,11 +118,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
-        android:text="Apply to Job"
+        android:text="View Job"
         android:textAllCaps="true"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/view_applicants"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="620dp"
+        android:text="Applicants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.245"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/manage_button"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="620dp"
+        android:text="Manage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,17 +162,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
-
-    <Button
-        android:id="@+id/apply_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:text="@string/apply_string"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

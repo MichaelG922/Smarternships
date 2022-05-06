@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.smarternships.R
+import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.User
 
 class EditAccountActivity : AppCompatActivity() {
 
@@ -41,8 +44,34 @@ class EditAccountActivity : AppCompatActivity() {
             var mDescriptionString = mDescriptionView.text.toString()
             var mEmailString = mEmailView.text.toString()
 
-            //TODO- update in DB & go back to prev activity
-            setResult(RESULT_OK)
+            if(mNameString.isEmpty() || mDescriptionString.isEmpty() || mEmailString.isEmpty()) {
+                if (mNameString.isEmpty()) {
+                    Toast.makeText(
+                        this,
+                        "Empty Name Name Field not allowed!",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                }
+
+                if (mDescriptionString.isEmpty()) {
+                    Toast.makeText(
+                        this,
+                        "Empty Description Field not allowed!",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                }
+
+                if(mEmailString.isEmpty()) {
+                    Toast.makeText(
+                        this,
+                        "Empty Email Field not allowed!",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }else{
+                //TODO- update in DB & go back to prev activity
+                setResult(RESULT_OK)
+            }
         }
     }
 }
