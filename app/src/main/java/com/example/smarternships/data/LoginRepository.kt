@@ -1,6 +1,7 @@
 package com.example.smarternships.data
 
 import com.example.smarternships.data.model.LoggedInUser
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -27,9 +28,9 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = dataSource.login(username, password)
+    fun login(username: String, password: String, mAuth: FirebaseAuth): Result<LoggedInUser> {
+
+        val result = dataSource.login(username, password, mAuth)
 
         if (result is Result.Success) {
             setLoggedInUser(result.data)

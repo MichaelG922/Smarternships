@@ -27,7 +27,8 @@ class ViewJobActivity : AppCompatActivity() {
         mIntern = findViewById<View>(R.id.intern_name) as EditText
         mCompanyName = findViewById<View>(R.id.company_name) as EditText
         mTimeFrame = findViewById<View>(R.id.time_frame) as EditText
-        mJobDescription = findViewById<View>(R.id.view_description) as EditText
+        mJobDescription = findViewById<View>(R.id.description) as EditText
+
         mViewIntern = findViewById<View>(R.id.view_intern) as Button
         mViewCompany = findViewById<View>(R.id.view_company) as Button
 

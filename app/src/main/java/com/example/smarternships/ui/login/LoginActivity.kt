@@ -18,14 +18,21 @@ import com.example.smarternships.databinding.ActivityLoginBinding
 
 import com.example.smarternships.R
 import com.example.smarternships.ui.register.RegisterActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
+    //For Firebase authentication
+    private var mAuth: FirebaseAuth? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Get Firebase Instance
+        mAuth = FirebaseAuth.getInstance()
         supportActionBar?.hide()
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -90,7 +97,8 @@ class LoginActivity : AppCompatActivity() {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
                             username.text.toString(),
-                            password.text.toString()
+                            password.text.toString(),
+                            mAuth!!
                         )
                 }
                 false
@@ -98,8 +106,7 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
-
+                loginViewModel.login(username.text.toString(), password.text.toString(), mAuth!!)
                 //TODO: handle login
             }
 

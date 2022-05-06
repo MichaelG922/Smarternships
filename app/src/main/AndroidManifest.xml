@@ -24,6 +24,9 @@
             android:name=".ui.job.ApplyJobActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.job.CreateJobActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.job.ViewJobActivity"
             android:exported="false" />
         <activity
@@ -49,6 +52,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

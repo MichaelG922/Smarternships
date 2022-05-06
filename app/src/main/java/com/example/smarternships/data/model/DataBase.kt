@@ -1,21 +1,52 @@
 package com.example.smarternships.data.model
 
-import android.view.Menu
-import com.example.smarternships.R
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
+import android.R
+import android.util.Log
+import com.google.firebase.database.*
+
 
 class DataBase {
     companion object {
-        public fun setUserName(id: String, name: String) {
-            var users = FirebaseDatabase.getInstance().getReference("users")
-            users.child(id).child("username").setValue(name)
-        }
-
         public fun createUser(id: String, user: User) {
             var users = FirebaseDatabase.getInstance().getReference("users")
             users.child(id).setValue(user)
+        }
+
+        public fun createJob(id: String, job: Job) {
+            var jobs = FirebaseDatabase.getInstance().getReference("jobs")
+            jobs.child(id).setValue(job)
+        }
+
+        public fun getUser(id: String, listener: OnGetDataListener) {
+            var users = FirebaseDatabase.getInstance().getReference("users")
+            var user = users.child(id)
+
+            listener.onStart()
+            user.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    listener.onSuccess(dataSnapshot);
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    listener.onFailure()
+                }
+            })
+        }
+
+        public fun getJob(id: String, listener: OnGetDataListener) {
+            var jobs = FirebaseDatabase.getInstance().getReference("jobs")
+            var job = jobs.child(id)
+
+            listener.onStart()
+            job.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    listener.onSuccess(dataSnapshot);
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    listener.onFailure()
+                }
+            })
         }
     }
 

@@ -50,7 +50,7 @@
 
     <EditText
         android:id="@+id/jobtimeframe"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="216dp"
         android:autofillHints="@string/prompt_create_job_timeframe"
@@ -58,9 +58,23 @@
         android:inputType="text"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobname"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/timeframeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:enabled="true"
+        android:text="@string/choose_time_button"
+        app:layout_constraintBottom_toTopOf="@+id/jobdescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.986"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jobname" />
 
     <EditText
         android:id="@+id/jobdescription"
@@ -87,14 +101,13 @@
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="64dp"
-        android:enabled="false"
+        android:enabled="true"
         android:text="@string/create_job_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobdescription"
         app:layout_constraintVertical_bias="0.2" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
