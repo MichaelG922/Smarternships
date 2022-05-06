@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Smarternships">
         <activity
+            android:name=".ui.account.EditAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.job.ApplyJobActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.job.ViewJobActivity"
             android:exported="false" />
         <activity
