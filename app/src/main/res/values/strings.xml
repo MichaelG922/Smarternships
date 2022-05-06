@@ -24,13 +24,14 @@
     <string name="employer_button">Employer</string>
     <!-- Strings Related to Company Job Creation   <>-->
     <string name="create_job_header">Create Job</string>
+    <string name="choose_time_button">Select Time Frame</string>
     <string name="prompt_create_job_name">Job Name</string>
     <string name="prompt_create_job_timeframe">Job Time Frame</string>
     <string name="prompt_create_job_description">Job Description</string>
     <string name="create_job_button">Create Job</string>
     <string name="apply_string">Apply</string>
     <!-- Strings Related to Company Job Managing  <>-->
-    <string name="manage_job_header">Create Job</string>
+    <string name="manage_job_header">Manage Job</string>
     <string name="prompt_manage_job_name">Job Name</string>
     <string name="prompt_manage_intern">No Intern</string>
     <string name="prompt_manage_job_timeframe">Job Time Frame</string>
