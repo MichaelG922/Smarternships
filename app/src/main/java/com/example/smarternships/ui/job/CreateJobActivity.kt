@@ -55,9 +55,7 @@ class CreateJobActivity: AppCompatActivity() {
         mJobTimeFrameField = findViewById<View>(R.id.jobtimeframe) as EditText
         mJobDescriptionField = findViewById<View>(R.id.jobdescription) as EditText
 
-        var mJobNameString = mJobNameField.text.toString()
-        var mJobTimeFrameString = mJobTimeFrameField.text.toString()
-        var mJobDescriptionString = mJobDescriptionField.text.toString()
+
         var mStartDate = "";
         var mEndDate = "";
 
@@ -90,6 +88,9 @@ class CreateJobActivity: AppCompatActivity() {
 
         mCreateJobButton.setOnClickListener {
             //TODO: Bring to View Job Company View
+            var mJobNameString = mJobNameField.text.toString()
+            var mJobTimeFrameString = mJobTimeFrameField.text.toString()
+            var mJobDescriptionString = mJobDescriptionField.text.toString()
             if(mJobNameString.isEmpty() ||
                 mJobTimeFrameString.isEmpty() ||
                 mJobDescriptionString.isEmpty() ||
@@ -130,7 +131,7 @@ class CreateJobActivity: AppCompatActivity() {
                 }
 
             }else{
-                val companyID = e?.getString("COMPANYID")
+                val companyID = e?.getString("USERID")
                 var job = companyID?.let { it1 -> Job(
                     jobName = mJobNameString,
                     companyId = it1,

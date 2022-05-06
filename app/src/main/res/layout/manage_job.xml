@@ -43,22 +43,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/timeFrame"
-        android:layout_width="0dp"
+        android:id="@+id/jobtimeframe"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="276dp"
-        android:autofillHints="@string/prompt_manage_job_timeframe"
-        android:hint="Job Time Frame"
-        android:inputType="none"
+        android:autofillHints="@string/prompt_create_job_timeframe"
+        android:hint="@string/prompt_create_job_timeframe"
+        android:inputType="text"
         android:minHeight="48dp"
         android:selectAllOnFocus="true"
+        app:layout_constraintBottom_toTopOf="@+id/jobDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/currentIntern"
+        app:layout_constraintVertical_bias="0.451" />
 
     <Button
-        android:id="@+id/viewCurrentJobs"
+        android:id="@+id/timeframeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:enabled="true"
+        android:text="@string/choose_time_button"
+        app:layout_constraintBottom_toTopOf="@id/jobDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.986"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewCurrentIntern" />
+
+
+    <Button
+        android:id="@+id/viewCurrentIntern"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="216dp"
@@ -69,7 +84,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/viewCurrentJobs2"
+        android:id="@+id/delCurrentIntern"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="216dp"
