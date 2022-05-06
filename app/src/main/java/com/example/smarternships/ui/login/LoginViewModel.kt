@@ -8,6 +8,7 @@ import com.example.smarternships.data.LoginRepository
 import com.example.smarternships.data.Result
 
 import com.example.smarternships.R
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -17,9 +18,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String, mAuth: FirebaseAuth) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        val result = loginRepository.login(username, password,mAuth)
 
         if (result is Result.Success) {
             _loginResult.value =
