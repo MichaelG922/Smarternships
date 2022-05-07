@@ -8,7 +8,6 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.example.smarternships.databinding.ActivityRegisterBinding
 
@@ -16,14 +15,19 @@ import com.example.smarternships.R
 import com.example.smarternships.ui.account.CreateAccountActivity
 import com.example.smarternships.ui.login.LoggedInUserView
 import com.example.smarternships.ui.login.afterTextChanged
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var registerViewModel: RegisterViewModel
     private lateinit var binding: ActivityRegisterBinding
 
+    //For Firebase authentication
+    private var mAuth: FirebaseAuth? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
+        mAuth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -97,10 +101,9 @@ class RegisterActivity : AppCompatActivity() {
 
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString())
+                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString(),mAuth!!)
                 startActivity(Intent(this@RegisterActivity, CreateAccountActivity::class.java))
             }
-
 }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

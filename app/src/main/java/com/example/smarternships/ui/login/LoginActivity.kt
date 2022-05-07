@@ -115,21 +115,11 @@ class LoginActivity : AppCompatActivity() {
 
             register?.setOnClickListener{
                 val regIntent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                getResult.launch(regIntent)
+                startActivity(regIntent)
             }
         }
     }
 
-    //TODO: open the actual app once signed in, just prints blah.
-    // this handles after registeractivity is complete
-    private val getResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                Toast.makeText(applicationContext, "blah", Toast.LENGTH_SHORT).show()
-            }
-        }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
