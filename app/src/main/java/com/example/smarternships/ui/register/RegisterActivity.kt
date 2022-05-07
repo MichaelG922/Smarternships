@@ -79,8 +79,7 @@ class RegisterActivity : AppCompatActivity() {
             )
         }
 
-        password.apply {
-            afterTextChanged {
+        password.afterTextChanged {
                 registerViewModel.registerDataChanged(
                     username.text.toString(),
                     password.text.toString(),
@@ -88,34 +87,20 @@ class RegisterActivity : AppCompatActivity() {
                 )
             }
 
-            confirmpass.apply {
-                afterTextChanged {
+            confirmpass!!.afterTextChanged {
                     registerViewModel.registerDataChanged(
                         username.text.toString(),
                         password.text.toString(),
                         confirmpass?.text.toString()
                     )
                 }
-            }
-
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        registerViewModel.register(
-                            username.text.toString(),
-                            password.text.toString(),
-                            confirmpass?.text.toString()
-                        )
-                }
-                false
-            }
 
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString())
                 startActivity(Intent(this@RegisterActivity, CreateAccountActivity::class.java))
             }
-    }
+
 }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

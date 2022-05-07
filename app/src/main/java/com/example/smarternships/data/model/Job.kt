@@ -7,7 +7,7 @@ data class Job(
     val companyId: String  = "",
     val description: String  = "",
     val timeFrame: String = "",
-    val assignedUserId: String?  = null,
+    val assignedUserId: String  = "",
     val completed: Boolean = false,
     val applicants: List<String> = mutableListOf(),
 )

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/apply_job.xml" value="0.240625" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/company_applicant_list.xml" value="0.240625" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/create_account.xml" value="0.11702127659574468" />
@@ -13,6 +14,51 @@
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_account.xml" value="0.25" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_job_company.xml" value="0.240625" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_jobs_intern.xml" value="0.240625" />
+=======
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/drawable/ic_launcher_background.xml" value="0.213" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/drawable/launcher_logo.xml" value="0.1005" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/drawable/launcher_logo_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/drawable/logo.xml" value="0.1" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1606425702811245" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1875" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_login.xml" value="0.16" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/activity_view_job.xml" value="0.264" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/apply_job.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/company_applicant_list.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/content_scrolling.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/create_account.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/create_account_details.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/create_job.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/edit_account.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/manage_job.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/my_jobs_list.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/prior_jobs_list.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/smrt_main_activity.xml" value="0.1" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/view_account.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/view_job_company.xml" value="0.2" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/layout/view_jobs_intern.xml" value="0.264" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/menu/menu_home.xml" value="0.25" />
+        <entry key="..\:/Users/golde/Documents/GitHub/Smarternships/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.108" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1390625" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout-w936dp/activity_login.xml" value="0.12158469945355191" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/activity_login.xml" value="0.1469098277608916" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/create_account.xml" value="0.1469098277608916" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_account.xml" value="0.24864130434782608" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/menu/menu_home.xml" value="0.29743589743589743" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2" />
+        <entry key="app/src/main/res/drawable/logo.xml" value="0.2" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.13253012048192772" />
+        <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.1359289617486339" />
+        <entry key="app/src/main/res/layout-w936dp/activity_register.xml" value="0.1359289617486339" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1802536231884058" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/create_account.xml" value="0.1802536231884058" />
+        <entry key="app/src/main/res/layout/create_job.xml" value="0.25869565217391305" />
+        <entry key="app/src/main/res/layout/view_account.xml" value="0.1802536231884058" />
+        <entry key="app/src/main/res/menu/menu_home.xml" value="0.20625" />
+>>>>>>> a51aee7d74e65d2c74db7923a8609772fb1148ef
       </map>
     </option>
   </component>

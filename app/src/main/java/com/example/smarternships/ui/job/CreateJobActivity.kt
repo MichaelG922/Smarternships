@@ -55,9 +55,7 @@ class CreateJobActivity: AppCompatActivity() {
         mJobTimeFrameField = findViewById<View>(R.id.jobtimeframe) as EditText
         mJobDescriptionField = findViewById<View>(R.id.jobdescription) as EditText
 
-        var mJobNameString = mJobNameField.text.toString()
-        var mJobTimeFrameString = mJobTimeFrameField.text.toString()
-        var mJobDescriptionString = mJobDescriptionField.text.toString()
+
         var mStartDate = "";
         var mEndDate = "";
 
@@ -80,8 +78,7 @@ class CreateJobActivity: AppCompatActivity() {
                 mStartDate = SimpleDateFormat("MM/dd/yyyy").format(Date(it.first));
                 mEndDate = SimpleDateFormat("MM/dd/yyyy").format(Date(it.second));
 
-                mJobTimeFrameField.text = "${mStartDate} - ${mEndDate}" as Editable
-            }
+                mJobTimeFrameField.setText("${mStartDate} - ${mEndDate}");            }
 
         }
 
@@ -90,6 +87,9 @@ class CreateJobActivity: AppCompatActivity() {
 
         mCreateJobButton.setOnClickListener {
             //TODO: Bring to View Job Company View
+            var mJobNameString = mJobNameField.text.toString()
+            var mJobTimeFrameString = mJobTimeFrameField.text.toString()
+            var mJobDescriptionString = mJobDescriptionField.text.toString()
             if(mJobNameString.isEmpty() ||
                 mJobTimeFrameString.isEmpty() ||
                 mJobDescriptionString.isEmpty() ||
@@ -130,7 +130,7 @@ class CreateJobActivity: AppCompatActivity() {
                 }
 
             }else{
-                val companyID = e?.getString("COMPANYID")
+                val companyID = e?.getString("USERID")
                 var job = companyID?.let { it1 -> Job(
                     jobName = mJobNameString,
                     companyId = it1,
