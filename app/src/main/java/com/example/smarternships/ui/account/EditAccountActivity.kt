@@ -42,7 +42,6 @@ class EditAccountActivity : AppCompatActivity() {
             DataBase.getUser(userID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
                     var user = dataSnapshot?.getValue(User::class.java)
-                    user = dataSnapshot?.getValue(User::class.java)!!
                     if (user != null) {
                         mEditNameView.setText(user.userName)
                         mEmailView.setText(user.userEmail)
