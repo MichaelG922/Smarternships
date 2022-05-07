@@ -37,8 +37,6 @@ class CreateJobActivity: AppCompatActivity() {
     private lateinit var mJobDescriptionField : EditText
     private lateinit var mSelectTimeFrameButton: Button
 
-
-
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
@@ -46,15 +44,11 @@ class CreateJobActivity: AppCompatActivity() {
 
         setContentView(R.layout.create_job)
 
-        val i = intent
-        val e = i.extras
-
         mCreateJobButton = findViewById<View>(R.id.createjob) as Button
         mSelectTimeFrameButton = findViewById<View>(R.id.timeframeButton) as Button
         mJobNameField = findViewById<View>(R.id.jobname) as EditText
         mJobTimeFrameField = findViewById<View>(R.id.jobtimeframe) as EditText
         mJobDescriptionField = findViewById<View>(R.id.jobdescription) as EditText
-
 
         var mStartDate = "";
         var mEndDate = "";
@@ -81,9 +75,6 @@ class CreateJobActivity: AppCompatActivity() {
                 mJobTimeFrameField.setText("${mStartDate} - ${mEndDate}");            }
 
         }
-
-
-
 
         mCreateJobButton.setOnClickListener {
             //TODO: Bring to View Job Company View
@@ -130,13 +121,15 @@ class CreateJobActivity: AppCompatActivity() {
                 }
 
             }else{
-                val companyID = e?.getString("USERID")
+                // TODO get the current user id and set it to be company ID
+                val companyID = "2"
                 var job = companyID?.let { it1 -> Job(
                     jobName = mJobNameString,
                     companyId = it1,
                     description = mJobDescriptionString,
                     timeFrame = "${mStartDate} - ${mEndDate}"
                 ) }
+
                 if(job != null){
                     val newJobID = java.util.UUID.randomUUID().toString()
                     DataBase.setJob(newJobID, job)

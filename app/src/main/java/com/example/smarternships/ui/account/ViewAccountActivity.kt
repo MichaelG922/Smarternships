@@ -14,6 +14,7 @@ import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
+import com.example.smarternships.ui.job.CreateJobActivity
 import com.google.firebase.database.DataSnapshot
 
 
@@ -24,6 +25,7 @@ class ViewAccountActivity: AppCompatActivity() {
     private lateinit var mViewCurrentJobs: Button
     private lateinit var mViewPriorJobs: Button
     private lateinit var mEditButton: Button
+    private lateinit var mUser: User
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +49,11 @@ class ViewAccountActivity: AppCompatActivity() {
 
             DataBase.getUser(userID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    var user = dataSnapshot?.getValue(User::class.java)
-                    if (user != null) {
-                        mTextName.setText(user.userName)
-                        mTextEmail.setText(user.userEmail)
-                        mTextDescription.setText(user.userDescription)
+                    mUser = dataSnapshot?.getValue(User::class.java)!!
+                    if (mUser != null) {
+                        mTextName.setText(mUser.userName)
+                        mTextEmail.setText(mUser.userEmail)
+                        mTextDescription.setText(mUser.userDescription)
                     }
                 }
 
@@ -93,8 +95,14 @@ class ViewAccountActivity: AppCompatActivity() {
     // Process clicks on Options Menu items
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                Toast.makeText(applicationContext, "Redirect to Settings", Toast.LENGTH_SHORT).show()
+            R.id.action_job -> {
+                Toast.makeText(applicationContext, "Redirect to find/create job", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, CreateJobActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.action_view_jobs -> {
+                Toast.makeText(applicationContext, "View Jobs", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.action_logout -> {

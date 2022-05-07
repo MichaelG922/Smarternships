@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,6 +14,7 @@ import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
+import com.example.smarternships.ui.job.CreateJobActivity
 import com.google.firebase.database.DataSnapshot
 
 class EditAccountActivity : AppCompatActivity() {
@@ -20,6 +23,7 @@ class EditAccountActivity : AppCompatActivity() {
     private lateinit var mEmailView: EditText
     private lateinit var mDescriptionView: EditText
     private lateinit var mSaveButton: Button
+    private lateinit var mUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +45,12 @@ class EditAccountActivity : AppCompatActivity() {
 
             DataBase.getUser(userID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    var user = dataSnapshot?.getValue(User::class.java)
-                    user = dataSnapshot?.getValue(User::class.java)!!
-                    if (user != null) {
-                        mEditNameView.setText(user.userName)
-                        mEmailView.setText(user.userEmail)
-                        mDescriptionView.setText(user.userDescription)
-                        if(user.isIntern) {
+                    mUser = dataSnapshot?.getValue(User::class.java)!!
+                    if (mUser != null) {
+                        mEditNameView.setText(mUser.userName)
+                        mEmailView.setText(mUser.userEmail)
+                        mDescriptionView.setText(mUser.userDescription)
+                        if(mUser.isIntern) {
                             mDescriptionView.hint = "Resume"
                         } else {
                             mDescriptionView.hint = "Company Description"
@@ -113,6 +116,34 @@ class EditAccountActivity : AppCompatActivity() {
                 intent.putExtra("USERID", userID)
                 startActivity(intent)
             }
+        }
+    }
+
+    // Create Options Menu
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    // Process clicks on Options Menu items
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_job -> {
+                Toast.makeText(applicationContext, "Redirect to find/create job", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, CreateJobActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.action_view_jobs -> {
+                Toast.makeText(applicationContext, "View Jobs", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_logout -> {
+                Toast.makeText(applicationContext, "Logout User", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> false
         }
     }
 }

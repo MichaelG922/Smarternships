@@ -3,11 +3,11 @@ package com.example.smarternships.data.model
 import java.util.*
 
 data class Job(
-    val jobName: String  = "",
+    var jobName: String  = "",
     val companyId: String  = "",
-    val description: String  = "",
-    val timeFrame: String = "",
-    val assignedUserId: String  = "",
-    val completed: Boolean = false,
+    var description: String  = "",
+    var timeFrame: String = "",
+    var assignedUserId: String  = "",
+    var completed: Boolean = false,
     val applicants: List<String> = mutableListOf(),
 )
