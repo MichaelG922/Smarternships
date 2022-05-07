@@ -78,8 +78,7 @@ class CreateJobActivity: AppCompatActivity() {
                 mStartDate = SimpleDateFormat("MM/dd/yyyy").format(Date(it.first));
                 mEndDate = SimpleDateFormat("MM/dd/yyyy").format(Date(it.second));
 
-                mJobTimeFrameField.text = "${mStartDate} - ${mEndDate}" as Editable
-            }
+                mJobTimeFrameField.setText("${mStartDate} - ${mEndDate}");            }
 
         }
 

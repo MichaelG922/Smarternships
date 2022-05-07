@@ -42,7 +42,7 @@ class ManageJobActivity: AppCompatActivity() {
     private lateinit var mUpdateJobButton: Button
     private lateinit var mSelectTimeFrameButton: Button
     private lateinit var mCurrentInternField: EditText
-
+    lateinit var job:Job
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -53,7 +53,7 @@ class ManageJobActivity: AppCompatActivity() {
 
         val i = intent
         val e = i.extras
-        var job = null;
+
 
         mUpdateJobButton = findViewById<View>(R.id.createjob) as Button
         mSelectTimeFrameButton = findViewById<View>(R.id.timeframeButton) as Button
@@ -70,7 +70,7 @@ class ManageJobActivity: AppCompatActivity() {
             Toast.makeText(applicationContext, jobID, Toast.LENGTH_SHORT).show()
             DataBase.getJob(jobID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    var job = dataSnapshot?.getValue(Job::class.java)
+                    job = dataSnapshot?.getValue(Job::class.java)!!
                     if (job != null) {
                         mJobNameField.setText(job.jobName)
                         mJobTimeFrameField.setText(job.timeFrame)
@@ -114,19 +114,31 @@ class ManageJobActivity: AppCompatActivity() {
                 mStartDate = SimpleDateFormat("MM/dd/yyyy").format(Date(it.first));
                 mEndDate = SimpleDateFormat("MM/dd/yyyy").format(Date(it.second));
 
-                mJobTimeFrameField.text = "${mStartDate} - ${mEndDate}" as Editable
+                mJobTimeFrameField.setText("${mStartDate} - ${mEndDate}");
             }
 
         }
 
         mViewInternButton.setOnClickListener {
             //TODO: Go To View Intern
+            var currentInternId = mCurrentInternField.text.toString();
+            if(!currentInternId.isEmpty()){
+                val intent = Intent(this, ViewAccountActivity::class.java)
+                intent.putExtra("USERID", currentInternId)
+                startActivity(intent)
+            }else{
+                Toast.makeText(
+                    this,
+                    "Cannot View Intern, no Intern Associated with Job!",
+                    Toast.LENGTH_SHORT
+                ).show();
+            }
 
         }
 
         mDeleteInternButton.setOnClickListener {
             //TODO: Delete Intern from job
-
+            mCurrentInternField.setText("");
         }
 
 
@@ -176,10 +188,17 @@ class ManageJobActivity: AppCompatActivity() {
                 }
 
             }else{
-                val companyID = e?.getString("COMPANYID")
                 //TODO: GET CURRENT JOB
-                if(job != null){
-                    //TODO:UPDATE JOB
+                val companyID = e?.getString("USERID")
+                var editedJob = companyID?.let { it1 -> Job(
+                    jobName = mJobNameField.text.toString(),
+                    companyId = it1,
+                    description = mJobDescriptionField.text.toString(),
+                    timeFrame = mJobTimeFrameField.text.toString(),
+                    applicants = job.applicants
+                ) }
+                if(editedJob != null) {
+                    DataBase.createJob(jobID!!, editedJob)
                     val intent = Intent(this, ViewJobActivity::class.java)
                     intent.putExtra("JOBID", jobID)
                     startActivity(intent)
