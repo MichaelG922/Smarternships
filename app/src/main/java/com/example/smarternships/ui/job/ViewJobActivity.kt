@@ -12,6 +12,7 @@ import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.Job
 import com.example.smarternships.data.model.OnGetDataListener
+import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.account.ViewAccountActivity
 import com.google.firebase.database.DataSnapshot
 
@@ -72,18 +73,32 @@ class ViewJobActivity : AppCompatActivity() {
             })
         }
 
-        //TODO - determine if intern or NOT
+        val userID = b?.getString("USERID")
+        if(userID != null){
+            DataBase.getUser(userID, object : OnGetDataListener {
+                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    var user = dataSnapshot?.getValue(User::class.java)
+                    if (user != null) {
+                        if(user.isIntern){
+                            if(!job.applicants.contains(b?.getString("USERID"))){
+                                mApplyButton.visibility = View.VISIBLE
+                                mIntern.visibility = View.INVISIBLE
+                            }
+                        }
+                    }
+                }
 
-        val isIntern = b?.getBoolean("ISINTERN")
+                override fun onStart() {
+                    //when starting
+                    Log.d("ONSTART", "Started")
+                }
 
-        //if the intern hasn't applied, then show them the apply button
-        // and hide the intern field
-        if(isIntern == true){
-            if(!job.applicants.contains(b?.getString("USERID"))){
-                mApplyButton.visibility = View.VISIBLE
-                mIntern.visibility = View.INVISIBLE
-            }
+                override fun onFailure() {
+                    Log.d("onFailure", "Failed")
+                }
+            })
         }
+
 
         mViewCompany.setOnClickListener {
             var companyID = mCompanyName.text.toString()

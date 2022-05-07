@@ -16,7 +16,6 @@ class LoginDataSource {
         mAuth!!.signInWithEmailAndPassword(username,password)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
-
                     logInSuccess = true
                 }
             }
