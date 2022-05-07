@@ -18,7 +18,7 @@ class RegisterDataSource {
 
     fun register(username: String, password: String, confirmPass: String, mAuth: FirebaseAuth): Result<RegisteredUser> {
 
-        val x = mAuth!!.createUserWithEmailAndPassword(username,password)
+        val x = mAuth.createUserWithEmailAndPassword(username,password)
         var registerSuccess = false
         x.addOnCompleteListener { task ->
             if(task.isSuccessful){

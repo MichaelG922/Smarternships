@@ -16,6 +16,7 @@ import com.example.smarternships.ui.account.CreateAccountActivity
 import com.example.smarternships.ui.login.LoggedInUserView
 import com.example.smarternships.ui.login.afterTextChanged
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -23,15 +24,17 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
     //For Firebase authentication
-    private var mAuth: FirebaseAuth? = null
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
-        mAuth = FirebaseAuth.getInstance()
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        mAuth = FirebaseAuth.getInstance()
 
         val username = binding.username
         val password = binding.password
@@ -101,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
 
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString(),mAuth!!)
+                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString(),mAuth)
                 startActivity(Intent(this@RegisterActivity, CreateAccountActivity::class.java))
             }
 }
