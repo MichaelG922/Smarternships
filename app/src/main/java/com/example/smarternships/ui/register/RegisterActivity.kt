@@ -105,7 +105,9 @@ class RegisterActivity : AppCompatActivity() {
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString(),mAuth)
-                startActivity(Intent(this@RegisterActivity, CreateAccountActivity::class.java))
+                val intent_i = Intent(this@RegisterActivity, CreateAccountActivity::class.java)
+
+                startActivity(intent_i)
             }
 }
 

@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     //For Firebase authentication
-    private var mAuth: FirebaseAuth? = null
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
                         loginViewModel.login(
                             username.text.toString(),
                             password.text.toString(),
-                            mAuth!!
+                            mAuth
                         )
                 }
                 false
@@ -113,7 +113,7 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString(), mAuth!!)
+                loginViewModel.login(username.text.toString(), password.text.toString(), mAuth)
 
                 DataBase.getUser(username.text.toString(), object : OnGetDataListener {
                     override fun onSuccess(dataSnapshot: DataSnapshot?) {
