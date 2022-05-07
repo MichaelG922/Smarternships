@@ -12,7 +12,6 @@ import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
-import com.example.smarternships.ui.job.ViewJobActivity
 import com.google.firebase.database.DataSnapshot
 
 class EditAccountActivity : AppCompatActivity() {
@@ -21,7 +20,6 @@ class EditAccountActivity : AppCompatActivity() {
     private lateinit var mEmailView: EditText
     private lateinit var mDescriptionView: EditText
     private lateinit var mSaveButton: Button
-    lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +27,9 @@ class EditAccountActivity : AppCompatActivity() {
         setContentView(R.layout.edit_account)
 
         val i = intent
-        val b = i.extras
+        val e = i.extras
 
-        val userID = b?.getString("USERID");
+        val userID = e?.getString("USERID");
 
         mEditNameView = findViewById<View>(R.id.edit_name) as EditText
         mEmailView = findViewById<View>(R.id.edit_email) as EditText
@@ -43,11 +41,17 @@ class EditAccountActivity : AppCompatActivity() {
 
             DataBase.getUser(userID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    var user = dataSnapshot?.getValue(User::class.java)
                     user = dataSnapshot?.getValue(User::class.java)!!
                     if (user != null) {
                         mEditNameView.setText(user.userName)
                         mEmailView.setText(user.userEmail)
                         mDescriptionView.setText(user.userDescription)
+                        if(user.isIntern) {
+                            mDescriptionView.hint = "Resume"
+                        } else {
+                            mDescriptionView.hint = "Company Description"
+                        }
                     }
                 }
 
@@ -65,9 +69,8 @@ class EditAccountActivity : AppCompatActivity() {
         mSaveButton.setOnClickListener {
             var mNameString = mEditNameView.text.toString()
             var mDescriptionString = mDescriptionView.text.toString()
-            var mEmailString = mEmailView.text.toString()
 
-            if(mNameString.isEmpty() || mDescriptionString.isEmpty() || mEmailString.isEmpty()) {
+            if(mNameString.isEmpty() || mDescriptionString.isEmpty()) {
                 if (mNameString.isEmpty()) {
                     Toast.makeText(
                         this,
@@ -84,30 +87,31 @@ class EditAccountActivity : AppCompatActivity() {
                     ).show();
                 }
 
-                if(mEmailString.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        "Empty Email Field not allowed!",
-                        Toast.LENGTH_SHORT
-                    ).show();
-                }
             }else{
-                val userID = b?.getString("USERID")
-                var editedUser = userID?.let{ it -> User(
-                    userName = mNameString,
-                    userEmail = mEmailString,
-                    userDescription = mDescriptionString,
-                    isIntern = user.isIntern,
-                    currentJobs = user.currentJobs,
-                    completedJobs = user.completedJobs
-                )}
+                if (userID != null) {
+                    DataBase.getUser(userID, object : OnGetDataListener {
+                        override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                            val user = dataSnapshot?.getValue(User::class.java)
+                            if (user != null) {
+                                user.userName = mNameString
+                                user.userDescription = mDescriptionString
+                                DataBase.setUser(userID, user)
+                            }
+                        }
 
-                if(editedUser != null){
-                    DataBase.createUser(userID!!,editedUser)
-                    val intent = Intent(this, ViewAccountActivity::class.java)
-                    intent.putExtra("USERID", userID)
-                    startActivity(intent)
+                        override fun onStart() {
+                            //when starting
+                            Log.d("ONSTART", "Started")
+                        }
+
+                        override fun onFailure() {
+                            Log.d("onFailure", "Failed")
+                        }
+                    })
                 }
+                val intent = Intent(this, ViewAccountActivity::class.java)
+                intent.putExtra("USERID", userID)
+                startActivity(intent)
             }
         }
     }

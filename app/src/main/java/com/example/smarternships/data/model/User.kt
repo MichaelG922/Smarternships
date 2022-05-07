@@ -1,10 +1,10 @@
 package com.example.smarternships.data.model
 
 data class User(
-    val userName: String  = "",
+    var userName: String = "",
     val userEmail: String  = "",
-    val userDescription: String  = "",
+    var userDescription: String  = "",
     val isIntern: Boolean = true,
     val currentJobs: List<Job> = mutableListOf(),
-    val completedJobs: List<Job> = mutableListOf(),
+    val completedJobs: List<Job> = mutableListOf()
 )

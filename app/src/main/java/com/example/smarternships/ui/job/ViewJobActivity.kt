@@ -130,7 +130,7 @@ class ViewJobActivity : AppCompatActivity() {
                 applicants = tempApps
             ) }
             if(editedJob != null) {
-                DataBase.createJob(jobID!!, editedJob)
+                DataBase.setJob(jobID!!, editedJob)
                 val intent = Intent(this, ViewJobActivity::class.java)
                 intent.putExtra("JOBID", jobID)
                 startActivity(intent)

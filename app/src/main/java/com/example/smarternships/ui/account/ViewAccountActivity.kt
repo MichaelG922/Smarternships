@@ -1,5 +1,6 @@
 package com.example.smarternships.ui.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -76,7 +77,9 @@ class ViewAccountActivity: AppCompatActivity() {
         }
 
         mEditButton.setOnClickListener {
-            Toast.makeText(applicationContext, "Redirect to users Edit Account", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, EditAccountActivity::class.java)
+            intent.putExtra("USERID", userID)
+            startActivity(intent)
         }
     }
 
