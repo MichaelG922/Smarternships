@@ -7,12 +7,12 @@ import com.google.firebase.database.*
 
 class DataBase {
     companion object {
-        public fun createUser(id: String, user: User) {
+        public fun setUser(id: String, user: User) {
             var users = FirebaseDatabase.getInstance().getReference("users")
             users.child(id).setValue(user)
         }
 
-        public fun createJob(id: String, job: Job) {
+        public fun setJob(id: String, job: Job) {
             var jobs = FirebaseDatabase.getInstance().getReference("jobs")
             jobs.child(id).setValue(job)
         }

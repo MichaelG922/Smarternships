@@ -139,7 +139,7 @@ class CreateJobActivity: AppCompatActivity() {
                 ) }
                 if(job != null){
                     val newJobID = java.util.UUID.randomUUID().toString()
-                    DataBase.createJob(newJobID,job)
+                    DataBase.setJob(newJobID, job)
                     val intent = Intent(this, ViewJobActivity::class.java)
                     intent.putExtra("JOBID", newJobID)
                     startActivity(intent)

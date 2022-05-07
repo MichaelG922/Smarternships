@@ -62,7 +62,7 @@ class CreateAccountDetailsActivity : AppCompatActivity() {
             }else{
                 var user = isIntern?.let { isInt -> User(mNameString, "email@test.com", mDescriptionString, isInt) }
                 if (user != null) {
-                    DataBase.createUser("2", user)
+                    DataBase.setUser("2", user)
                     val intent = Intent(this, ViewAccountActivity::class.java)
                     intent.putExtra("USERID", "2")
                     startActivity(intent)
