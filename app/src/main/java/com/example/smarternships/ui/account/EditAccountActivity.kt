@@ -1,14 +1,19 @@
 package com.example.smarternships.ui.account
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
+import com.example.smarternships.ui.job.ViewJobActivity
+import com.google.firebase.database.DataSnapshot
 
 class EditAccountActivity : AppCompatActivity() {
 
@@ -16,6 +21,7 @@ class EditAccountActivity : AppCompatActivity() {
     private lateinit var mEmailView: EditText
     private lateinit var mDescriptionView: EditText
     private lateinit var mSaveButton: Button
+    lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +31,35 @@ class EditAccountActivity : AppCompatActivity() {
         val i = intent
         val b = i.extras
 
-        val isIntern = b?.getBoolean("ISINTERN")
+        val userID = b?.getString("USERID");
 
-        //TODO - populate these fields properly
         mEditNameView = findViewById<View>(R.id.edit_name) as EditText
         mEmailView = findViewById<View>(R.id.edit_email) as EditText
         mDescriptionView = findViewById<View>(R.id.edit_description) as EditText
         mSaveButton = findViewById<View>(R.id.save_button) as Button
 
-        if(isIntern == true){
-            mDescriptionView.hint = "Resume"
-        } else {
-            mDescriptionView.hint = "Company Description"
+        if (userID != null) {
+            Toast.makeText(applicationContext, userID, Toast.LENGTH_SHORT).show()
+
+            DataBase.getUser(userID, object : OnGetDataListener {
+                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    user = dataSnapshot?.getValue(User::class.java)!!
+                    if (user != null) {
+                        mEditNameView.setText(user.userName)
+                        mEmailView.setText(user.userEmail)
+                        mDescriptionView.setText(user.userDescription)
+                    }
+                }
+
+                override fun onStart() {
+                    //when starting
+                    Log.d("ONSTART", "Started")
+                }
+
+                override fun onFailure() {
+                    Log.d("onFailure", "Failed")
+                }
+            })
         }
 
         mSaveButton.setOnClickListener {
@@ -69,8 +92,22 @@ class EditAccountActivity : AppCompatActivity() {
                     ).show();
                 }
             }else{
-                //TODO- update in DB & go back to prev activity
-                setResult(RESULT_OK)
+                val userID = b?.getString("USERID")
+                var editedUser = userID?.let{ it -> User(
+                    userName = mNameString,
+                    userEmail = mEmailString,
+                    userDescription = mDescriptionString,
+                    isIntern = user.isIntern,
+                    currentJobs = user.currentJobs,
+                    completedJobs = user.completedJobs
+                )}
+
+                if(editedUser != null){
+                    DataBase.createUser(userID!!,editedUser)
+                    val intent = Intent(this, ViewAccountActivity::class.java)
+                    intent.putExtra("USERID", userID)
+                    startActivity(intent)
+                }
             }
         }
     }

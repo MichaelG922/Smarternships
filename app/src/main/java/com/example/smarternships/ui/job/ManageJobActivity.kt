@@ -203,7 +203,6 @@ class ManageJobActivity: AppCompatActivity() {
                     intent.putExtra("JOBID", jobID)
                     startActivity(intent)
                 }
-
             }
 
         }
