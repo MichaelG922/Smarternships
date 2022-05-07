@@ -1,6 +1,7 @@
 package com.example.smarternships.data
 
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import com.example.smarternships.data.model.LoggedInUser
@@ -21,6 +22,7 @@ class RegisterDataSource {
         var registerSuccess = false
         x.addOnCompleteListener { task ->
             if(task.isSuccessful){
+                Log.i("--------------------", "task is successful")
                 registerSuccess = true
             }
         }
