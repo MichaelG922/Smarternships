@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -17,8 +18,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.smarternships.databinding.ActivityLoginBinding
 
 import com.example.smarternships.R
+import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.OnGetDataListener
+import com.example.smarternships.data.model.User
+import com.example.smarternships.ui.account.CreateAccountActivity
+import com.example.smarternships.ui.account.ViewAccountActivity
 import com.example.smarternships.ui.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
 
 class LoginActivity : AppCompatActivity() {
 
@@ -107,7 +114,27 @@ class LoginActivity : AppCompatActivity() {
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString(), mAuth!!)
-                //TODO: handle login
+
+                DataBase.getUser(username.text.toString(), object : OnGetDataListener {
+                    override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                        var user = dataSnapshot?.getValue(User::class.java)
+                        if (user != null) {
+                            val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
+                            //TODO: handle login, currently using email as ID
+                            intent.putExtra("USERID", user.userEmail)
+                            startActivity(Intent(this@LoginActivity, ViewAccountActivity::class.java))
+                        }
+                    }
+
+                    override fun onStart() {
+                        //when starting
+                        Log.d("ONSTART", "Started")
+                    }
+
+                    override fun onFailure() {
+                        Log.d("onFailure", "Failed")
+                    }
+                })
             }
 
             //enables create button, opens registering activity
