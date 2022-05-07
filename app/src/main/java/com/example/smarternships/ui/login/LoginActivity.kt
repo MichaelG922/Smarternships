@@ -115,26 +115,10 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString(), mAuth)
 
-                DataBase.getUser(username.text.toString(), object : OnGetDataListener {
-                    override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                        var user = dataSnapshot?.getValue(User::class.java)
-                        if (user != null) {
-                            val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
-                            //TODO: handle login, currently using email as ID
-                            intent.putExtra("USERID", user.userEmail)
-                            startActivity(Intent(this@LoginActivity, ViewAccountActivity::class.java))
-                        }
-                    }
-
-                    override fun onStart() {
-                        //when starting
-                        Log.d("ONSTART", "Started")
-                    }
-
-                    override fun onFailure() {
-                        Log.d("onFailure", "Failed")
-                    }
-                })
+                val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
+                //TODO: handle login, currently using email as ID
+                intent.putExtra("USERID", mAuth.currentUser!!.uid)
+                startActivity(intent)
             }
 
             //enables create button, opens registering activity

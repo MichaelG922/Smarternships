@@ -5,6 +5,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.example.smarternships.R
+import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.Job
+import com.example.smarternships.data.model.OnGetDataListener
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+
+//
+//import com.example.smarternships.data.model.Job
+//import com.example.smarternships.data.model.OnGetDataListener
+//import com.example.smarternships.data.model.User
+//import com.example.smarternships.ui.account.ViewAccountActivity
+private lateinit var databaseUsers: DatabaseReference
 
 class MyJobsList : AppCompatActivity() {
 
@@ -19,7 +31,15 @@ class MyJobsList : AppCompatActivity() {
         val i = intent
         val b = i.extras
 
-        val isIntern = b?.getBoolean("ISINTERN")
-        //todo - populate job list based on if intern or company (buttons?)
+
+//
+//        databaseUsers = FirebaseDatabase.getInstance().getReference("users")
+//
+//        val isIntern = b?.getBoolean("ISINTERN")
+//        //todo - populate job list based on if intern or company (buttons?)
+//        val id = databaseUsers.push().key
+//        val job = DataBase.getJob(id!!, listener : OnGetDataListener{
+//
+//        })
     }
 }
