@@ -26,6 +26,7 @@ import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.ui.account.ViewAccountActivity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.firebase.auth.FirebaseAuth
 import org.w3c.dom.Text
 import java.util.*
 
@@ -36,7 +37,7 @@ class CreateJobActivity: AppCompatActivity() {
     private lateinit var mJobTimeFrameField : EditText
     private lateinit var mJobDescriptionField : EditText
     private lateinit var mSelectTimeFrameButton: Button
-
+    private lateinit var mAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
@@ -122,7 +123,8 @@ class CreateJobActivity: AppCompatActivity() {
 
             }else{
                 // TODO get the current user id and set it to be company ID
-                val companyID = "2"
+                mAuth = FirebaseAuth.getInstance()
+                val companyID = mAuth.currentUser!!.uid;
                 var job = companyID?.let { it1 -> Job(
                     jobName = mJobNameString,
                     companyId = it1,
