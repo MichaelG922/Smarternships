@@ -116,7 +116,6 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString(), mAuth)
 
                 val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
-                //TODO: handle login, currently using email as ID
                 intent.putExtra("USERID", mAuth.currentUser!!.uid)
                 startActivity(intent)
             }

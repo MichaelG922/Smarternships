@@ -5,6 +5,5 @@ data class User(
     val userEmail: String  = "",
     var userDescription: String  = "",
     val isIntern: Boolean = true,
-    val currentJobs: List<Job> = mutableListOf(),
-    val completedJobs: List<Job> = mutableListOf()
+    var jobs: List<String> = mutableListOf(),
 )

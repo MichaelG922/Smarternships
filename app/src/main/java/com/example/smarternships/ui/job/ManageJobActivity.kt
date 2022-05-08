@@ -42,40 +42,69 @@ class ManageJobActivity: AppCompatActivity() {
     private lateinit var mUpdateJobButton: Button
     private lateinit var mSelectTimeFrameButton: Button
     private lateinit var mCurrentInternField: EditText
-    lateinit var job:Job
+
+    private lateinit var mDeleteButton: Button
+    private lateinit var mFinishButton: Button
+
+    lateinit var mJob: Job
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
         supportActionBar?.hide()
 
-        setContentView(R.layout.create_job)
+        setContentView(R.layout.manage_job)
 
         val i = intent
         val e = i.extras
 
+        mJobNameField = findViewById<View>(R.id.jobName) as EditText
+        mJobTimeFrameField = findViewById<View>(R.id.jobTimeFrame) as EditText
+        mJobDescriptionField = findViewById<View>(R.id.jobDescription) as EditText
+        mCurrentInternField = findViewById<View>(R.id.currentIntern) as EditText
 
-        mUpdateJobButton = findViewById<View>(R.id.createjob) as Button
+        mUpdateJobButton = findViewById<View>(R.id.save_button) as Button
         mSelectTimeFrameButton = findViewById<View>(R.id.timeframeButton) as Button
-        mJobNameField = findViewById<View>(R.id.jobname) as EditText
-        mJobTimeFrameField = findViewById<View>(R.id.jobtimeframe) as EditText
-        mJobDescriptionField = findViewById<View>(R.id.jobdescription) as EditText
         mViewInternButton = findViewById<View>(R.id.viewCurrentIntern) as Button
         mDeleteInternButton = findViewById<View>(R.id.delCurrentIntern) as Button
-        mCurrentInternField = findViewById<View>(R.id.currentIntern) as EditText
+        mDeleteButton = findViewById<View>(R.id.delete_button) as Button
+        mFinishButton = findViewById<View>(R.id.finish_button) as Button
 
         val jobID = e?.getString("JOBID");
 
         if(jobID != null){
-            Toast.makeText(applicationContext, jobID, Toast.LENGTH_SHORT).show()
             DataBase.getJob(jobID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    job = dataSnapshot?.getValue(Job::class.java)!!
-                    if (job != null) {
-                        mJobNameField.setText(job.jobName)
-                        mJobTimeFrameField.setText(job.timeFrame)
-                        mJobDescriptionField.setText(job.description)
-                        mCurrentInternField.setText(job.assignedUserId)
+                    mJob = dataSnapshot?.getValue(Job::class.java)!!
+                    if (mJob != null) {
+                        mJobNameField.setText(mJob.jobName)
+                        mJobTimeFrameField.setText(mJob.timeFrame)
+                        mJobDescriptionField.setText(mJob.description)
+
+                        if (mJob.assignedUserId != "") {
+                            // set assigned user name to be name corresponding to assigned user id
+                            DataBase.getUser(mJob.assignedUserId, object : OnGetDataListener {
+                                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                                    var user = dataSnapshot?.getValue(User::class.java)!!
+                                    if (user != null) {
+                                        mCurrentInternField.setText(user.userName)
+                                    }
+                                }
+
+                                override fun onStart() {
+                                    //when starting
+                                    Log.d("ONSTART", "Started")
+                                }
+
+                                override fun onFailure() {
+                                    Log.d("onFailure", "Failed")
+                                }
+                            })
+                        } else {
+                            mCurrentInternField.setText("Job Not Assigned")
+                            mViewInternButton.visibility = View.INVISIBLE
+                            mDeleteInternButton.visibility = View.INVISIBLE
+                        }
                     }
                 }
 
@@ -89,8 +118,6 @@ class ManageJobActivity: AppCompatActivity() {
                 }
             })
         }
-
-
 
         var mStartDate = "";
         var mEndDate = "";
@@ -120,24 +147,13 @@ class ManageJobActivity: AppCompatActivity() {
         }
 
         mViewInternButton.setOnClickListener {
-            //TODO: Go To View Intern
-            var currentInternId = mCurrentInternField.text.toString();
-            if(!currentInternId.isEmpty()){
+                // Go To View Intern
                 val intent = Intent(this, ViewAccountActivity::class.java)
-                intent.putExtra("USERID", currentInternId)
+                intent.putExtra("USERID", mJob.assignedUserId)
                 startActivity(intent)
-            }else{
-                Toast.makeText(
-                    this,
-                    "Cannot View Intern, no Intern Associated with Job!",
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
-
         }
 
         mDeleteInternButton.setOnClickListener {
-            //TODO: Delete Intern from job
             mCurrentInternField.setText("");
         }
 
@@ -148,12 +164,9 @@ class ManageJobActivity: AppCompatActivity() {
             var mJobTimeFrameString = mJobTimeFrameField.text.toString()
             var mJobDescriptionString = mJobDescriptionField.text.toString()
 
-            if(mJobNameString.isEmpty() ||
-                mJobTimeFrameString.isEmpty() ||
-                mJobDescriptionString.isEmpty() ||
-                mStartDate.isEmpty() ||
-                mEndDate.isEmpty()
-            ){
+            if(mJobNameString.isEmpty()
+                || mJobTimeFrameString.isEmpty()
+                || mJobDescriptionString.isEmpty()){
 
                 if (mJobNameString.isEmpty()) {
                     Toast.makeText(
@@ -179,26 +192,48 @@ class ManageJobActivity: AppCompatActivity() {
                     ).show();
                 }
 
-                if (mStartDate.isEmpty() || mEndDate.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        "Must Choose a Time Frame",
-                        Toast.LENGTH_SHORT
-                    ).show();
-                }
-
             }else{
-                //TODO: GET CURRENT JOB
-                val companyID = e?.getString("USERID")
-                var editedJob = companyID?.let { it1 -> Job(
-                    jobName = mJobNameField.text.toString(),
-                    companyId = it1,
-                    description = mJobDescriptionField.text.toString(),
-                    timeFrame = mJobTimeFrameField.text.toString(),
-                    applicants = job.applicants
-                ) }
-                if(editedJob != null) {
-                    DataBase.setJob(jobID!!, editedJob)
+                if(mJob != null) {
+                    mJob.jobName = mJobNameString
+                    mJob.description = mJobDescriptionString
+                    mJob.timeFrame = mJobTimeFrameString
+
+                    if (mCurrentInternField.text.toString() == "") {
+                        // If were removing our intern remove the job from their current jobs
+                        if (jobID != null) {
+                            DataBase.removeJobFromUser(jobID, mJob.assignedUserId)
+                        }
+                        mJob.assignedUserId = ""
+                    }
+
+                    DataBase.setJob(jobID!!, mJob)
+                    val intent = Intent(this, ViewJobActivity::class.java)
+                    intent.putExtra("JOBID", jobID)
+                    startActivity(intent)
+                }
+            }
+
+            mDeleteButton.setOnClickListener {
+                if(mJob != null) {
+                    if (jobID != null) {
+                        if (mJob.assignedUserId != "") {
+                            DataBase.removeJobFromUser(jobID, mJob.assignedUserId)
+                        }
+                        DataBase.removeJobFromUser(jobID, mJob.companyId)
+                        DataBase.deleteJob(jobID!!)
+                    }
+
+                    val intent = Intent(this, ViewAccountActivity::class.java)
+                    // TODO send user back to their account need to get their user id
+                    intent.putExtra("USERID", "2")
+                    startActivity(intent)
+                }
+            }
+
+            mFinishButton.setOnClickListener {
+                if(mJob != null) {
+                    mJob.completed = true
+                    DataBase.setJob(jobID!!, mJob)
                     val intent = Intent(this, ViewJobActivity::class.java)
                     intent.putExtra("JOBID", jobID)
                     startActivity(intent)

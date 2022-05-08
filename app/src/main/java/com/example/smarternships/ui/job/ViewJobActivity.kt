@@ -26,12 +26,15 @@ class ViewJobActivity : AppCompatActivity() {
     private lateinit var mViewIntern: Button
     private lateinit var mViewCompany: Button
     private lateinit var mApplyButton: Button
-    lateinit var job: Job
+    private lateinit var mManageButton: Button
+    private lateinit var mApplicantsButton: Button
+
+    lateinit var mJob: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_view_job)
+        setContentView(R.layout.view_job)
         mJobName = findViewById<View>(R.id.job_name) as EditText
         mIntern = findViewById<View>(R.id.intern_name) as EditText
         mCompanyName = findViewById<View>(R.id.company_name) as EditText
@@ -41,7 +44,12 @@ class ViewJobActivity : AppCompatActivity() {
         mViewIntern = findViewById<View>(R.id.view_intern) as Button
         mViewCompany = findViewById<View>(R.id.view_company) as Button
         mApplyButton = findViewById<View>(R.id.apply_button) as Button
+        mManageButton = findViewById<View>(R.id.manage_button) as Button
+        mApplicantsButton = findViewById<View>(R.id.view_applicants) as Button
+
+        mApplicantsButton.visibility = View.INVISIBLE
         mApplyButton.visibility = View.INVISIBLE
+        mManageButton.visibility = View.INVISIBLE
 
         val i = intent
         val b = i.extras
@@ -49,16 +57,56 @@ class ViewJobActivity : AppCompatActivity() {
         val jobID = b?.getString("JOBID")
 
         if(jobID != null){
-            Toast.makeText(applicationContext, jobID, Toast.LENGTH_SHORT).show()
             DataBase.getJob(jobID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    job = dataSnapshot?.getValue(Job::class.java)!!
-                    if (job != null) {
-                        mJobName.setText(job.jobName)
-                        mTimeFrame.setText(job.timeFrame)
-                        mJobDescription.setText(job.description)
-                        mCompanyName.setText(job.companyId)
-                        mIntern.setText(job.assignedUserId)
+                    mJob = dataSnapshot?.getValue(Job::class.java)!!
+                    if (mJob != null) {
+                        mJobName.setText(mJob.jobName)
+                        mTimeFrame.setText(mJob.timeFrame)
+                        mJobDescription.setText(mJob.description)
+
+                        // set company name to be name corresponding to company id
+                        DataBase.getUser(mJob.companyId, object : OnGetDataListener {
+                            override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                                var user = dataSnapshot?.getValue(User::class.java)!!
+                                if (user != null) {
+                                    mCompanyName.setText(user.userName)
+                                }
+                            }
+
+                            override fun onStart() {
+                                //when starting
+                                Log.d("ONSTART", "Started")
+                            }
+
+                            override fun onFailure() {
+                                Log.d("onFailure", "Failed")
+                            }
+                        })
+
+                        if (mJob.assignedUserId != "") {
+                            // set assigned user name to be name corresponding to assigned user id
+                            DataBase.getUser(mJob.assignedUserId, object : OnGetDataListener {
+                                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                                    var user = dataSnapshot?.getValue(User::class.java)!!
+                                    if (user != null) {
+                                        mIntern.setText(user.userName)
+                                    }
+                                }
+
+                                override fun onStart() {
+                                    //when starting
+                                    Log.d("ONSTART", "Started")
+                                }
+
+                                override fun onFailure() {
+                                    Log.d("onFailure", "Failed")
+                                }
+                            })
+                        } else {
+                            mIntern.setText("Job Not Assigned")
+                            mViewIntern.visibility = View.INVISIBLE
+                        }
                     }
                 }
 
@@ -80,10 +128,20 @@ class ViewJobActivity : AppCompatActivity() {
                     var user = dataSnapshot?.getValue(User::class.java)
                     if (user != null) {
                         if(user.isIntern){
-                            if(!job.applicants.contains(b?.getString("USERID"))){
+                            //unapplied intern: show apply button & hide intern fieldi
+                            if(!mJob.applicants.contains(b?.getString("USERID"))){
                                 mApplyButton.visibility = View.VISIBLE
                                 mIntern.visibility = View.INVISIBLE
                             }
+                            //company: show applicants & manage buttons
+                        } else if(!user.isIntern){
+                            mApplicantsButton.visibility = View.VISIBLE
+                            mManageButton.visibility = View.VISIBLE
+
+                            //applied intern: hide apply button & show applicant name
+                        } else{
+                            mApplyButton.visibility = View.INVISIBLE
+                            mIntern.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -99,24 +157,34 @@ class ViewJobActivity : AppCompatActivity() {
             })
         }
 
+        //show view with all applicants
+        mApplicantsButton.setOnClickListener {
+            val intent = Intent(this, CompanyApplicantList::class.java)
+            intent.putExtra("APPLICANTS", arrayOf(mJob.applicants))
+            startActivity(intent)
+        }
 
         mViewCompany.setOnClickListener {
-            var companyID = mCompanyName.text.toString()
             val intent = Intent(this, ViewAccountActivity::class.java)
-            intent.putExtra(b?.getString("USERID"), companyID)
+            intent.putExtra("USERID", mJob.companyId)
             startActivity(intent)
         }
 
         mViewIntern.setOnClickListener {
-            var currentInternId = mIntern.text.toString();
             val intent = Intent(this, ViewAccountActivity::class.java)
-            intent.putExtra(b?.getString("USERID"), currentInternId)
+            intent.putExtra("USERID", mJob.assignedUserId)
+            startActivity(intent)
+        }
+
+        mManageButton.setOnClickListener {
+            val intent = Intent(this, ManageJobActivity::class.java)
+            intent.putExtra("JOBID", jobID)
             startActivity(intent)
         }
 
         mApplyButton.setOnClickListener {
             val tempApps = mutableListOf<String>()
-            job.applicants.forEach {
+            mJob.applicants.forEach {
                 tempApps.add(it)
             }
             tempApps.add(b?.getString("USERID")!!)

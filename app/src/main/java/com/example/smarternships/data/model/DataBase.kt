@@ -17,6 +17,31 @@ class DataBase {
             jobs.child(id).setValue(job)
         }
 
+        public fun deleteJob(id: String) {
+            var jobs = FirebaseDatabase.getInstance().getReference("jobs")
+            jobs.child(id).removeValue()
+        }
+
+        public fun removeJobFromUser(jobId: String, userId: String) {
+            getUser(userId, object : OnGetDataListener {
+                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    var user = dataSnapshot?.getValue(User::class.java)!!
+                    if (user != null) {
+                        user.jobs = user.jobs.filter { key: String -> key != jobId }
+                        DataBase.setUser(userId, user)
+                    }
+                }
+                override fun onStart() {
+                    //when starting
+                    Log.d("ONSTART", "Started")
+                }
+
+                override fun onFailure() {
+                    Log.d("onFailure", "Failed")
+                }
+            })
+        }
+
         public fun getUser(id: String, listener: OnGetDataListener) {
             var users = FirebaseDatabase.getInstance().getReference("users")
             var user = users.child(id)
@@ -48,7 +73,6 @@ class DataBase {
                 }
             })
         }
-
     }
 
 
