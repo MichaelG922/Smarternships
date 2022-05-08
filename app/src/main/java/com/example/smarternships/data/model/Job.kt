@@ -9,5 +9,5 @@ data class Job(
     var timeFrame: String = "",
     var assignedUserId: String  = "",
     var completed: Boolean = false,
-    val applicants: List<String> = mutableListOf(),
+    val applicants: List<String> = listOf(),
 )

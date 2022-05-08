@@ -23,25 +23,27 @@ import com.example.smarternships.data.model.Job
 import com.google.android.material.datepicker.MaterialDatePicker
 import androidx.core.util.Pair
 import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.OnGetDataListener
+import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.account.ViewAccountActivity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
 import org.w3c.dom.Text
 import java.util.*
 
 class CreateJobActivity: AppCompatActivity() {
 
-    private lateinit var mCreateJobButton: Button
     private lateinit var mJobNameField : EditText
     private lateinit var mJobTimeFrameField : EditText
     private lateinit var mJobDescriptionField : EditText
+    private lateinit var mCreateJobButton: Button
     private lateinit var mSelectTimeFrameButton: Button
+    private var mCurrentUserId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-
-        supportActionBar?.hide()
-
         setContentView(R.layout.create_job)
 
         mCreateJobButton = findViewById<View>(R.id.createjob) as Button
@@ -49,6 +51,10 @@ class CreateJobActivity: AppCompatActivity() {
         mJobNameField = findViewById<View>(R.id.jobname) as EditText
         mJobTimeFrameField = findViewById<View>(R.id.jobtimeframe) as EditText
         mJobDescriptionField = findViewById<View>(R.id.jobdescription) as EditText
+
+        // get the current user
+        var auth = FirebaseAuth.getInstance()
+        mCurrentUserId = auth.currentUser?.uid
 
         var mStartDate = "";
         var mEndDate = "";
@@ -77,16 +83,12 @@ class CreateJobActivity: AppCompatActivity() {
         }
 
         mCreateJobButton.setOnClickListener {
-            //TODO: Bring to View Job Company View
             var mJobNameString = mJobNameField.text.toString()
             var mJobTimeFrameString = mJobTimeFrameField.text.toString()
             var mJobDescriptionString = mJobDescriptionField.text.toString()
-            if(mJobNameString.isEmpty() ||
-                mJobTimeFrameString.isEmpty() ||
-                mJobDescriptionString.isEmpty() ||
-                mStartDate.isEmpty() ||
-                mEndDate.isEmpty()
-            ){
+
+            if(mJobNameString.isEmpty() || mJobTimeFrameString.isEmpty() ||
+                mJobDescriptionString.isEmpty() || mStartDate.isEmpty() || mEndDate.isEmpty()){
 
                 if (mJobNameString.isEmpty()) {
                     Toast.makeText(
@@ -121,18 +123,20 @@ class CreateJobActivity: AppCompatActivity() {
                 }
 
             }else{
-                // TODO get the current user id and set it to be company ID
-                val companyID = "2"
-                var job = companyID?.let { it1 -> Job(
-                    jobName = mJobNameString,
-                    companyId = it1,
-                    description = mJobDescriptionString,
-                    timeFrame = "${mStartDate} - ${mEndDate}"
-                ) }
+                var job = mCurrentUserId?.let { userId ->
+                        Job(
+                            jobName = mJobNameString,
+                            companyId = userId,
+                            description = mJobDescriptionString,
+                            timeFrame = "$mStartDate - $mEndDate",
+                        )}
 
                 if(job != null){
                     val newJobID = java.util.UUID.randomUUID().toString()
                     DataBase.setJob(newJobID, job)
+
+                    mCurrentUserId?.let { it1 -> DataBase.addJobToUser(newJobID, it1) }
+
                     val intent = Intent(this, ViewJobActivity::class.java)
                     intent.putExtra("JOBID", newJobID)
                     startActivity(intent)

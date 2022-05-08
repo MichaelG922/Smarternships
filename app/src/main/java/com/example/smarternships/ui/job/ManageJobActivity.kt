@@ -28,6 +28,7 @@ import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.account.ViewAccountActivity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import org.w3c.dom.Text
 import java.util.*
@@ -42,21 +43,14 @@ class ManageJobActivity: AppCompatActivity() {
     private lateinit var mUpdateJobButton: Button
     private lateinit var mSelectTimeFrameButton: Button
     private lateinit var mCurrentInternField: EditText
-
     private lateinit var mDeleteButton: Button
     private lateinit var mFinishButton: Button
-
-    lateinit var mJob: Job
+    private lateinit var mJob: Job
+    private var mCurrentUserId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-
-        supportActionBar?.hide()
-
         setContentView(R.layout.manage_job)
-
-        val i = intent
-        val e = i.extras
 
         mJobNameField = findViewById<View>(R.id.jobName) as EditText
         mJobTimeFrameField = findViewById<View>(R.id.jobTimeFrame) as EditText
@@ -70,6 +64,8 @@ class ManageJobActivity: AppCompatActivity() {
         mDeleteButton = findViewById<View>(R.id.delete_button) as Button
         mFinishButton = findViewById<View>(R.id.finish_button) as Button
 
+        val i = intent
+        val e = i.extras
         val jobID = e?.getString("JOBID");
 
         if(jobID != null){
@@ -90,15 +86,8 @@ class ManageJobActivity: AppCompatActivity() {
                                         mCurrentInternField.setText(user.userName)
                                     }
                                 }
-
-                                override fun onStart() {
-                                    //when starting
-                                    Log.d("ONSTART", "Started")
-                                }
-
-                                override fun onFailure() {
-                                    Log.d("onFailure", "Failed")
-                                }
+                                override fun onStart() {}
+                                override fun onFailure() {}
                             })
                         } else {
                             mCurrentInternField.setText("Job Not Assigned")
@@ -107,17 +96,14 @@ class ManageJobActivity: AppCompatActivity() {
                         }
                     }
                 }
-
-                override fun onStart() {
-                    //when starting
-                    Log.d("ONSTART", "Started")
-                }
-
-                override fun onFailure() {
-                    Log.d("onFailure", "Failed")
-                }
+                override fun onStart() {}
+                override fun onFailure() {}
             })
         }
+
+        // get the current user
+        var auth = FirebaseAuth.getInstance()
+        mCurrentUserId = auth.currentUser?.uid
 
         var mStartDate = "";
         var mEndDate = "";
@@ -212,34 +198,32 @@ class ManageJobActivity: AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+        }
 
-            mDeleteButton.setOnClickListener {
-                if(mJob != null) {
-                    if (jobID != null) {
-                        if (mJob.assignedUserId != "") {
-                            DataBase.removeJobFromUser(jobID, mJob.assignedUserId)
-                        }
-                        DataBase.removeJobFromUser(jobID, mJob.companyId)
-                        DataBase.deleteJob(jobID!!)
-                    }
-
-                    val intent = Intent(this, ViewAccountActivity::class.java)
-                    // TODO send user back to their account need to get their user id
-                    intent.putExtra("USERID", "2")
-                    startActivity(intent)
+        mDeleteButton.setOnClickListener {
+            if(mJob != null && jobID != null) {
+                if (mJob.assignedUserId != "") {
+                    DataBase.removeJobFromUser(jobID, mJob.assignedUserId)
                 }
-            }
 
-            mFinishButton.setOnClickListener {
-                if(mJob != null) {
-                    mJob.completed = true
-                    DataBase.setJob(jobID!!, mJob)
-                    val intent = Intent(this, ViewJobActivity::class.java)
-                    intent.putExtra("JOBID", jobID)
-                    startActivity(intent)
-                }
-            }
+                DataBase.removeJobFromUser(jobID, mJob.companyId)
+                DataBase.deleteJob(jobID!!)
 
+                val intent = Intent(this, ViewAccountActivity::class.java)
+                intent.putExtra("USERID", mCurrentUserId)
+                startActivity(intent)
+            }
+        }
+
+        mFinishButton.setOnClickListener {
+            if(mJob != null) {
+                mJob.completed = true
+                DataBase.setJob(jobID!!, mJob)
+
+                val intent = Intent(this, ViewJobActivity::class.java)
+                intent.putExtra("JOBID", jobID)
+                startActivity(intent)
+            }
         }
     }
 }

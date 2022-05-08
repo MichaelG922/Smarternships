@@ -21,20 +21,18 @@ class CreateAccountDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
-
         setContentView(R.layout.create_account_details)
 
         val i = intent
         val b = i.extras
 
-        val isIntern = b?.getBoolean("ISINTERN")
+        val userType = b?.getString("USERTYPE")
 
         mContinueButton = findViewById<View>(R.id.continue_button) as Button
         mNameTextView = findViewById<View>(R.id.name_editText) as EditText
         mDescriptionTextView = findViewById<View>(R.id.description_editText) as EditText
 
-        if (isIntern == true) {
+        if (userType == "Intern") {
             mDescriptionTextView.hint = "Resume";
         } else {
             mDescriptionTextView.hint = "Company Description";
@@ -64,8 +62,13 @@ class CreateAccountDetailsActivity : AppCompatActivity() {
                 val firebaseUser = FirebaseAuth.getInstance().currentUser
                 var userEmail = firebaseUser?.email
                 var userID = firebaseUser?.uid
+                var user = userType?.let { uType -> User(
+                    userName = mNameString,
+                    userEmail = userEmail!!,
+                    userDescription = mDescriptionString,
+                    userType = uType
+                )}
 
-                var user = isIntern?.let { isInt -> User(mNameString, userEmail!!, mDescriptionString, isInt) }
                 if (user != null) {
                     DataBase.setUser(userID!!, user)
                     val intent = Intent(this, ViewAccountActivity::class.java)

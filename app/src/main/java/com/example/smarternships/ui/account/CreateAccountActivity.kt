@@ -15,27 +15,20 @@ class CreateAccountActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
-
         setContentView(R.layout.create_account)
-        val i = intent
-        val b = i.extras
 
         mInternButton = findViewById<View>(R.id.intern) as Button
         mEmployerButton = findViewById<View>(R.id.employer) as Button
 
         mInternButton.setOnClickListener {
             val intent = Intent(this, CreateAccountDetailsActivity::class.java)
-            intent.putExtra("ISINTERN", true)
-
-
+            intent.putExtra("USERTYPE", "Intern")
             startActivity(intent)
         }
 
         mEmployerButton.setOnClickListener {
             val intent = Intent(this, CreateAccountDetailsActivity::class.java)
-            intent.putExtra("ISINTERN", false)
-
+            intent.putExtra("USERTYPE", "Employer")
             startActivity(intent)
         }
     }

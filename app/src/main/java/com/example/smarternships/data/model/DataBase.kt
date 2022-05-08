@@ -2,34 +2,35 @@ package com.example.smarternships.data.model
 
 import android.R
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
 class DataBase {
     companion object {
-        public fun setUser(id: String, user: User) {
+        fun setUser(id: String, user: User) {
             var users = FirebaseDatabase.getInstance().getReference("users")
             users.child(id).setValue(user)
         }
 
-        public fun setJob(id: String, job: Job) {
+        fun setJob(id: String, job: Job) {
             var jobs = FirebaseDatabase.getInstance().getReference("jobs")
             jobs.child(id).setValue(job)
         }
 
-        public fun deleteJob(id: String) {
+        fun deleteJob(jobID: String) {
             var jobs = FirebaseDatabase.getInstance().getReference("jobs")
-            jobs.child(id).removeValue()
+            jobs.child(jobID).removeValue()
         }
 
-        public fun removeJobFromUser(jobId: String, userId: String) {
+        fun addJobToUser(jobId: String, userId: String) {
             getUser(userId, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
                     var user = dataSnapshot?.getValue(User::class.java)!!
-                    if (user != null) {
-                        user.jobs = user.jobs.filter { key: String -> key != jobId }
-                        DataBase.setUser(userId, user)
-                    }
+                    user.jobs.plus(jobId).distinct()
+                    setUser(userId, user)
+
                 }
                 override fun onStart() {
                     //when starting
@@ -42,7 +43,44 @@ class DataBase {
             })
         }
 
-        public fun getUser(id: String, listener: OnGetDataListener) {
+        fun removeJobFromUser(jobId: String, userId: String) {
+            getUser(userId, object : OnGetDataListener {
+                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    var user = dataSnapshot?.getValue(User::class.java)!!
+                    user.jobs = user.jobs.filter { key: String -> key != jobId }
+                    setUser(userId, user)
+
+                }
+                override fun onStart() {
+                    //when starting
+                    Log.d("ONSTART", "Started")
+                }
+
+                override fun onFailure() {
+                    Log.d("onFailure", "Failed")
+                }
+            })
+        }
+
+        fun applyToJob(jobId: String, userId: String) {
+            getJob(jobId, object : OnGetDataListener {
+                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    var job = dataSnapshot?.getValue(Job::class.java)!!
+                    job.applicants.plus(userId).distinct()
+                    setJob(jobId, job)
+                }
+                override fun onStart() {
+                    //when starting
+                    Log.d("ONSTART", "Started")
+                }
+
+                override fun onFailure() {
+                    Log.d("onFailure", "Failed")
+                }
+            })
+        }
+
+        fun getUser(id: String, listener: OnGetDataListener) {
             var users = FirebaseDatabase.getInstance().getReference("users")
             var user = users.child(id)
 
@@ -58,7 +96,7 @@ class DataBase {
             })
         }
 
-        public fun getJob(id: String, listener: OnGetDataListener) {
+        fun getJob(id: String, listener: OnGetDataListener) {
             var jobs = FirebaseDatabase.getInstance().getReference("jobs")
             var job = jobs.child(id)
 
