@@ -49,7 +49,7 @@
     <string name="manage_button">Manage</string>
     <string name="applicants_button">Applicants</string>
     <string name="view_job_title">View Job</string>
-    <string name="current_jobs">Current Jobs</string>
+    <string name="all_jobs">All Jobs</string>
     <string name="prior_jobs">Prior Jobs</string>
     <string name="account_title">Account</string>
     <string name="edit_button">Edit</string>

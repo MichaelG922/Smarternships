@@ -16,7 +16,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
-        android:autofillHints="@string/prompt_create_job_name"
+        android:autofillHints="Name"
         android:hint="@string/user_or_company_name"
         android:selectAllOnFocus="true"
         android:inputType="text"

@@ -50,7 +50,7 @@
         android:layout_marginTop="276dp"
         android:layout_marginEnd="110dp"
         android:autofillHints="@string/prompt_create_job_name"
-        android:text="@string/current_jobs"
+        android:text="@string/all_jobs"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
@@ -58,34 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/priorJobs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:layout_marginRight="110dp"
-        android:autofillHints="@string/prompt_create_job_name"
-        android:text="@string/prior_jobs"
-        android:clickable="false"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/viewPriorJobs"
-        android:layout_width="87dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:text="@string/view_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
 
     <Button
         android:id="@+id/viewCurrentJobs"
@@ -101,9 +73,9 @@
 
     <EditText
         android:id="@+id/description"
-        android:layout_height="200dp"
+        android:layout_height="275dp"
         android:layout_width="0dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="350dp"
         android:hint="@string/prompt_create_job_description"
         android:clickable="false"
         android:cursorVisible="false"

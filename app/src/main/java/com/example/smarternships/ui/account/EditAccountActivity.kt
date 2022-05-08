@@ -50,9 +50,12 @@ class EditAccountActivity : AppCompatActivity() {
                         mEditNameView.setText(mUser.userName)
                         mEmailView.setText(mUser.userEmail)
                         mDescriptionView.setText(mUser.userDescription)
+
                         if(mUser.isIntern) {
+                            mEditNameView.hint = "User"
                             mDescriptionView.hint = "Resume"
                         } else {
+                            mEditNameView.hint = "Company"
                             mDescriptionView.hint = "Company Description"
                         }
                     }
