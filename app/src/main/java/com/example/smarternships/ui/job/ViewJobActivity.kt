@@ -157,9 +157,11 @@ class ViewJobActivity : AppCompatActivity() {
             })
         }
 
-        //when a company account hits the applicants button
+        //show view with all applicants
         mApplicantsButton.setOnClickListener {
-
+            val intent = Intent(this, CompanyApplicantList::class.java)
+            intent.putExtra("APPLICANTS", arrayOf(mJob.applicants))
+            startActivity(intent)
         }
 
         mViewCompany.setOnClickListener {
