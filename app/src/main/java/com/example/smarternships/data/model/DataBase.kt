@@ -1,5 +1,6 @@
 package com.example.smarternships.data.model
 
+import android.util.Log
 import com.google.firebase.database.*
 
 
@@ -33,12 +34,43 @@ class DataBase {
         }
 
         fun removeJobFromUser(jobId: String, userId: String) {
+//            var users = FirebaseDatabase.getInstance().getReference("users")
+//            var user = users.child(userId)
+//            var jobs = FirebaseDatabase.getInstance().getReference("jobs")
+//            var job = jobs.child(jobId)
+//
+//            if(user){
+//
+//            }
+
+
             getUser(userId, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
 
+                    var user = dataSnapshot?.getValue(User::class.java)!!
+                    if(user.jobs.indexOf(jobId) != -1) {
+                        user.jobs = user.jobs.filter { it != jobId }
+                        setUser(userId, user)
+                        Log.i("USER-JOB Success", "Successfully to remove job from user")
+                    }
                 }
                 override fun onStart() {}
-                override fun onFailure() {}
+                override fun onFailure() {
+                    Log.i("USER-JOB ERR", "Failed to remove job from user")
+                }
+            })
+            getJob(jobId, object : OnGetDataListener {
+                override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                    var job = dataSnapshot?.getValue(Job::class.java)!!
+                    job.assignedUserId =  ""
+                    setJob(jobId, job)
+                    Log.i("USER-JOB Success", "Successfully to remove user from job")
+
+                }
+                override fun onStart() {}
+                override fun onFailure() {
+                    Log.i("USER-JOB ERR", "Failed to remove user from job")
+                }
             })
         }
 
@@ -59,7 +91,7 @@ class DataBase {
             var user = users.child(id)
 
             listener.onStart()
-            user.addValueEventListener(object : ValueEventListener {
+            user.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     listener.onSuccess(dataSnapshot);
                 }
@@ -75,7 +107,7 @@ class DataBase {
             var job = jobs.child(id)
 
             listener.onStart()
-            job.addValueEventListener(object : ValueEventListener {
+            job.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     listener.onSuccess(dataSnapshot);
                 }

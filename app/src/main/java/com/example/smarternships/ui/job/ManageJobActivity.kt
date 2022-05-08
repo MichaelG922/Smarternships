@@ -197,6 +197,7 @@ class ManageJobActivity: AppCompatActivity() {
                     val intent = Intent(this, ViewJobActivity::class.java)
                     intent.putExtra("JOBID", jobID)
                     startActivity(intent)
+                    finish()
                 }
             }
         }
@@ -207,11 +208,12 @@ class ManageJobActivity: AppCompatActivity() {
                     DataBase.removeJobFromUser(jobID, mJob.assignedUserId)
                 }
                 DataBase.removeJobFromUser(jobID, mJob.companyId)
-                DataBase.deleteJob(jobID!!)
+//                DataBase.deleteJob(jobID!!)
 
                 val intent = Intent(this, ViewAccountActivity::class.java)
                 intent.putExtra("USERID", mCurrentUserId)
                 startActivity(intent)
+                finish()
             }
         }
 
@@ -224,6 +226,7 @@ class ManageJobActivity: AppCompatActivity() {
                 val intent = Intent(this, ViewJobActivity::class.java)
                 intent.putExtra("JOBID", jobID)
                 startActivity(intent)
+                finish()
             }
         }
     }
