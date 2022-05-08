@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/activity_login.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/activity_register.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/activity_view_job.xml" value="0.21" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/apply_job.xml" value="0.240625" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/company_applicant_list.xml" value="0.240625" />
@@ -11,7 +13,7 @@
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/create_job.xml" value="0.33" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/edit_account.xml" value="0.16" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/manage_job.xml" value="0.240625" />
-        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/my_jobs_list.xml" value="0.2703125" />
+        <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/my_jobs_list.xml" value="0.25" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_account.xml" value="0.25" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_job.xml" value="0.33" />
         <entry key="..\:/Users/willf/Downloads/Programming/CMSC436/Smarternships/app/src/main/res/layout/view_job_company.xml" value="0.240625" />
