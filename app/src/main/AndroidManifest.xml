@@ -21,9 +21,6 @@
             android:name=".ui.job.CompanyApplicantList"
             android:exported="false" />
         <activity
-            android:name=".ui.job.ViewJobCompanyActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.job.ViewJobsInternList"
             android:exported="false" />
         <activity

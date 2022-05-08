@@ -22,7 +22,6 @@ class RegisterDataSource {
         var registerSuccess = false
         x.addOnCompleteListener { task ->
             if(task.isSuccessful){
-                Log.i("--------------------", "task is successful")
                 registerSuccess = true
             }
         }
@@ -37,7 +36,7 @@ class RegisterDataSource {
                 return Result.Error(IOException(""))
             }
         } catch (e: Throwable) {
-            return Result.Error(IOException("Error registering in", e))
+            return Result.Error(IOException("Failed Registration.", e))
         }
     }
 

@@ -27,6 +27,8 @@ class ViewJobActivity : AppCompatActivity() {
     private lateinit var mViewCompany: Button
     private lateinit var mApplyButton: Button
     private lateinit var mManageButton: Button
+    private lateinit var mApplicantsButton: Button
+
     lateinit var mJob: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +45,11 @@ class ViewJobActivity : AppCompatActivity() {
         mViewCompany = findViewById<View>(R.id.view_company) as Button
         mApplyButton = findViewById<View>(R.id.apply_button) as Button
         mManageButton = findViewById<View>(R.id.manage_button) as Button
+        mApplicantsButton = findViewById<View>(R.id.view_applicants) as Button
+
+        mApplicantsButton.visibility = View.INVISIBLE
         mApplyButton.visibility = View.INVISIBLE
+        mManageButton.visibility = View.INVISIBLE
 
         val i = intent
         val b = i.extras
@@ -122,10 +128,20 @@ class ViewJobActivity : AppCompatActivity() {
                     var user = dataSnapshot?.getValue(User::class.java)
                     if (user != null) {
                         if(user.isIntern){
+                            //unapplied intern: show apply button & hide intern fieldi
                             if(!mJob.applicants.contains(b?.getString("USERID"))){
                                 mApplyButton.visibility = View.VISIBLE
                                 mIntern.visibility = View.INVISIBLE
                             }
+                            //company: show applicants & manage buttons
+                        } else if(!user.isIntern){
+                            mApplicantsButton.visibility = View.VISIBLE
+                            mManageButton.visibility = View.VISIBLE
+
+                            //applied intern: hide apply button & show applicant name
+                        } else{
+                            mApplyButton.visibility = View.INVISIBLE
+                            mIntern.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -141,6 +157,12 @@ class ViewJobActivity : AppCompatActivity() {
             })
         }
 
+        //show view with all applicants
+        mApplicantsButton.setOnClickListener {
+            val intent = Intent(this, CompanyApplicantList::class.java)
+            intent.putExtra("APPLICANTS", arrayOf(mJob.applicants))
+            startActivity(intent)
+        }
 
         mViewCompany.setOnClickListener {
             val intent = Intent(this, ViewAccountActivity::class.java)
