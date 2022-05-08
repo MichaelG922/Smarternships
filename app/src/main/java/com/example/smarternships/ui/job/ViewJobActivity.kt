@@ -192,7 +192,9 @@ class ViewJobActivity : AppCompatActivity() {
                 true
             }
             R.id.action_view_jobs -> {
-                Toast.makeText(applicationContext, "View Jobs", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ViewJobsActivity::class.java)
+                intent.putExtra("USERID", mCurrentUserId)
+                startActivity(intent)
                 true
             }
             R.id.action_logout -> {

@@ -15,7 +15,7 @@
             android:name=".ui.job.PriorJobsList"
             android:exported="false" />
         <activity
-            android:name=".ui.job.MyJobsList"
+            android:name=".ui.job.ViewJobsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.job.CompanyApplicantList"

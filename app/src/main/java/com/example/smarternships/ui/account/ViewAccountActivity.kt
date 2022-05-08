@@ -17,7 +17,7 @@ import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.job.CreateJobActivity
 import com.example.smarternships.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.example.smarternships.ui.job.MyJobsList
+import com.example.smarternships.ui.job.ViewJobsActivity
 import com.google.firebase.database.DataSnapshot
 
 class ViewAccountActivity: AppCompatActivity() {
@@ -82,9 +82,8 @@ class ViewAccountActivity: AppCompatActivity() {
         }
 
         mViewAllJobs.setOnClickListener {
-            Toast.makeText(applicationContext, "Redirect to all Jobs", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this,MyJobsList::class.java)
-            intent.putExtra("USERID",userID)
+            val intent = Intent(this, ViewJobsActivity::class.java)
+            intent.putExtra("USERID", userID)
             startActivity(intent)
         }
 
@@ -127,7 +126,9 @@ class ViewAccountActivity: AppCompatActivity() {
                 true
             }
             R.id.action_view_jobs -> {
-                Toast.makeText(applicationContext, "View Jobs", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ViewJobsActivity::class.java)
+                intent.putExtra("USERID", mCurrentUserId)
+                startActivity(intent)
                 true
             }
             R.id.action_logout -> {

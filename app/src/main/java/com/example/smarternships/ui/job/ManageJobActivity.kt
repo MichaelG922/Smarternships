@@ -2,21 +2,14 @@ package com.example.smarternships.ui.job
 
 import android.widget.Button
 
-import android.app.Activity
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.text.Editable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import com.example.smarternships.R
@@ -28,11 +21,8 @@ import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.account.ViewAccountActivity
 import com.example.smarternships.ui.login.LoginActivity
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
-import org.w3c.dom.Text
 import java.util.*
 
 class ManageJobActivity: AppCompatActivity() {
@@ -271,7 +261,9 @@ class ManageJobActivity: AppCompatActivity() {
                 true
             }
             R.id.action_view_jobs -> {
-                Toast.makeText(applicationContext, "View Jobs", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ViewJobsActivity::class.java)
+                intent.putExtra("USERID", mCurrentUserId)
+                startActivity(intent)
                 true
             }
             R.id.action_logout -> {
