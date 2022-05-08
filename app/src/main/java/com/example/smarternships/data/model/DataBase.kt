@@ -28,18 +28,12 @@ class DataBase {
             getUser(userId, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
                     var user = dataSnapshot?.getValue(User::class.java)!!
-                    user.jobs.plus(jobId).distinct()
+                    user.jobs = user.jobs.plus(jobId).distinct()
+                    Log.d("addingJobToUser", user.jobs.toString())
                     setUser(userId, user)
-
                 }
-                override fun onStart() {
-                    //when starting
-                    Log.d("ONSTART", "Started")
-                }
-
-                override fun onFailure() {
-                    Log.d("onFailure", "Failed")
-                }
+                override fun onStart() {}
+                override fun onFailure() {}
             })
         }
 
@@ -51,14 +45,8 @@ class DataBase {
                     setUser(userId, user)
 
                 }
-                override fun onStart() {
-                    //when starting
-                    Log.d("ONSTART", "Started")
-                }
-
-                override fun onFailure() {
-                    Log.d("onFailure", "Failed")
-                }
+                override fun onStart() {}
+                override fun onFailure() {}
             })
         }
 
@@ -66,17 +54,11 @@ class DataBase {
             getJob(jobId, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
                     var job = dataSnapshot?.getValue(Job::class.java)!!
-                    job.applicants.plus(userId).distinct()
+                    job.applicants = job.applicants.plus(userId).distinct()
                     setJob(jobId, job)
                 }
-                override fun onStart() {
-                    //when starting
-                    Log.d("ONSTART", "Started")
-                }
-
-                override fun onFailure() {
-                    Log.d("onFailure", "Failed")
-                }
+                override fun onStart() {}
+                override fun onFailure() {}
             })
         }
 
