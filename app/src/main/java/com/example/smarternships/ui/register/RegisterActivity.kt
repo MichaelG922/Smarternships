@@ -8,7 +8,6 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.example.smarternships.databinding.ActivityRegisterBinding
 
@@ -16,18 +15,26 @@ import com.example.smarternships.R
 import com.example.smarternships.ui.account.CreateAccountActivity
 import com.example.smarternships.ui.login.LoggedInUserView
 import com.example.smarternships.ui.login.afterTextChanged
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var registerViewModel: RegisterViewModel
     private lateinit var binding: ActivityRegisterBinding
 
+    //For Firebase authentication
+    private lateinit var mAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        mAuth = FirebaseAuth.getInstance()
 
         val username = binding.username
         val password = binding.password
@@ -97,10 +104,11 @@ class RegisterActivity : AppCompatActivity() {
 
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString())
-                startActivity(Intent(this@RegisterActivity, CreateAccountActivity::class.java))
-            }
+                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString(),mAuth)
+                val intent_i = Intent(this@RegisterActivity, CreateAccountActivity::class.java)
 
+                startActivity(intent_i)
+            }
 }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

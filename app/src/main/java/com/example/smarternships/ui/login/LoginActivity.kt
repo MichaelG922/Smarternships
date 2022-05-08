@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -17,8 +18,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.smarternships.databinding.ActivityLoginBinding
 
 import com.example.smarternships.R
+import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.OnGetDataListener
+import com.example.smarternships.data.model.User
+import com.example.smarternships.ui.account.CreateAccountActivity
+import com.example.smarternships.ui.account.ViewAccountActivity
 import com.example.smarternships.ui.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     //For Firebase authentication
-    private var mAuth: FirebaseAuth? = null
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
                         loginViewModel.login(
                             username.text.toString(),
                             password.text.toString(),
-                            mAuth!!
+                            mAuth
                         )
                 }
                 false
@@ -106,8 +113,12 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString(), mAuth!!)
-                //TODO: handle login
+                loginViewModel.login(username.text.toString(), password.text.toString(), mAuth)
+
+                val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
+                //TODO: handle login, currently using email as ID
+                intent.putExtra("USERID", mAuth.currentUser!!.uid)
+                startActivity(intent)
             }
 
             //enables create button, opens registering activity
@@ -115,21 +126,11 @@ class LoginActivity : AppCompatActivity() {
 
             register?.setOnClickListener{
                 val regIntent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                getResult.launch(regIntent)
+                startActivity(regIntent)
             }
         }
     }
 
-    //TODO: open the actual app once signed in, just prints blah.
-    // this handles after registeractivity is complete
-    private val getResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                Toast.makeText(applicationContext, "blah", Toast.LENGTH_SHORT).show()
-            }
-        }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.User
+import com.google.firebase.auth.FirebaseAuth
 
 
 class CreateAccountDetailsActivity : AppCompatActivity() {
@@ -60,11 +61,15 @@ class CreateAccountDetailsActivity : AppCompatActivity() {
                     ).show();
                 }
             }else{
-                var user = isIntern?.let { isInt -> User(mNameString, "email@test.com", mDescriptionString, isInt) }
+                val firebaseUser = FirebaseAuth.getInstance().currentUser
+                var userEmail = firebaseUser?.email
+                var userID = firebaseUser?.uid
+
+                var user = isIntern?.let { isInt -> User(mNameString, userEmail!!, mDescriptionString, isInt) }
                 if (user != null) {
-                    DataBase.setUser("2", user)
+                    DataBase.setUser(userID!!, user)
                     val intent = Intent(this, ViewAccountActivity::class.java)
-                    intent.putExtra("USERID", "2")
+                    intent.putExtra("USERID", userID)
                     startActivity(intent)
                 }
             }

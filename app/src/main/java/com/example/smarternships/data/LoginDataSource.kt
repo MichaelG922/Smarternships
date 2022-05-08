@@ -13,7 +13,7 @@ class LoginDataSource {
 
         var logInSuccess = false
         // handle login
-        mAuth!!.signInWithEmailAndPassword(username,password)
+        mAuth.signInWithEmailAndPassword(username,password)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     logInSuccess = true

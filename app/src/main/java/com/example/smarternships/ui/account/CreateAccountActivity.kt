@@ -18,6 +18,8 @@ class CreateAccountActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setContentView(R.layout.create_account)
+        val i = intent
+        val b = i.extras
 
         mInternButton = findViewById<View>(R.id.intern) as Button
         mEmployerButton = findViewById<View>(R.id.employer) as Button
@@ -25,12 +27,15 @@ class CreateAccountActivity : AppCompatActivity() {
         mInternButton.setOnClickListener {
             val intent = Intent(this, CreateAccountDetailsActivity::class.java)
             intent.putExtra("ISINTERN", true)
+
+
             startActivity(intent)
         }
 
         mEmployerButton.setOnClickListener {
             val intent = Intent(this, CreateAccountDetailsActivity::class.java)
             intent.putExtra("ISINTERN", false)
+
             startActivity(intent)
         }
     }

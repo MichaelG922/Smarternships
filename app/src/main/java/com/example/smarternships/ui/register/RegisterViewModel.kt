@@ -1,5 +1,6 @@
 package com.example.smarternships.ui.register
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +8,9 @@ import android.util.Patterns
 import com.example.smarternships.R
 import com.example.smarternships.data.RegisterRepository
 import com.example.smarternships.data.Result
+import com.example.smarternships.ui.account.CreateAccountActivity
 import com.example.smarternships.ui.login.LoggedInUserView
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterViewModel(private val registerRepository: RegisterRepository) : ViewModel() {
 
@@ -17,9 +20,9 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
     private val _registerResult = MutableLiveData<RegisterResult>()
     val registerResult: LiveData<RegisterResult> = _registerResult
 
-    fun register(username: String, password: String, confirmPass: String) {
+    fun register(username: String, password: String, confirmPass: String, mAuth: FirebaseAuth) {
         // can be launched in a separate asynchronous job
-        val result = registerRepository.register(username, password,confirmPass)
+        val result = registerRepository.register(username, password,confirmPass,mAuth)
 
         if (result is Result.Success) {
             _registerResult.value =
