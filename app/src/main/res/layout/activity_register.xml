@@ -26,11 +26,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="120dp"
         android:text="@string/register_header"
         android:textAllCaps="true"
-        android:textSize="16dp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
