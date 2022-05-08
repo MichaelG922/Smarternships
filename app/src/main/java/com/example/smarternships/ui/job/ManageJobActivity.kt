@@ -206,7 +206,6 @@ class ManageJobActivity: AppCompatActivity() {
                 if (mJob.assignedUserId != "") {
                     DataBase.removeJobFromUser(jobID, mJob.assignedUserId)
                 }
-
                 DataBase.removeJobFromUser(jobID, mJob.companyId)
                 DataBase.deleteJob(jobID!!)
 

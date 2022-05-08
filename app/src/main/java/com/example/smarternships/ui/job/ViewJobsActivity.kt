@@ -10,7 +10,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
-import com.example.smarternships.data.model.Job
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.login.LoginActivity
@@ -28,7 +27,7 @@ class ViewJobsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.my_jobs_list)
+        setContentView(R.layout.scroll_list)
 
         mListViewJobs = findViewById<View>(R.id.listViewJobs) as ListView
 

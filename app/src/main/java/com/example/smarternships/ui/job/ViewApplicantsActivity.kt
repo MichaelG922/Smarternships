@@ -1,43 +1,55 @@
 package com.example.smarternships.ui.job
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.Job
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
+import com.example.smarternships.ui.account.ViewAccountActivity
 import com.example.smarternships.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 
-class ViewUsersJobsActivity : AppCompatActivity() {
 
-    private lateinit var mListViewJobs : ListView
-    private lateinit var mJobIds: MutableList<String>
-    private lateinit var mJobNames: MutableList<String>
-    private lateinit var mAdapter: ArrayAdapter<String>
-    private lateinit var mUser: User
+class ViewApplicantsActivity : AppCompatActivity() {
+
+    private lateinit var mListViewUsers : ListView
     private lateinit var mCurrentUser: User
+    private lateinit var mUserIds: MutableList<String>
+    private lateinit var mUserNames: MutableList<String>
+    private lateinit var mAdapter: ArrayAdapter<String>
+    private lateinit var mJob: Job
+    private lateinit var mContext: Context
     private var mCurrentUserId: String? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.scroll_list)
 
-        mListViewJobs = findViewById<View>(R.id.listViewJobs) as ListView
+        (findViewById<View>(R.id.textView2) as TextView).text = "Applicants"
+
+        mListViewUsers = findViewById<View>(R.id.listViewJobs) as ListView
+
+        mContext = this
 
         val i = intent
         val b = i.extras
 
-        val userID = b?.getString("USERID")
+        val jobID = b?.getString("JOBID")
 
         // get the current user
         var auth = FirebaseAuth.getInstance()
@@ -53,30 +65,32 @@ class ViewUsersJobsActivity : AppCompatActivity() {
         })
 
         //List to store all jobs
-        mJobIds = ArrayList()
-        mJobNames = ArrayList()
+        mUserIds = ArrayList()
+        mUserNames = ArrayList()
 
         mAdapter = ArrayAdapter<String>(
             this,
             android.R.layout.simple_list_item_1,
-            mJobNames
+            mUserNames
         )
-        mListViewJobs.adapter = mAdapter
+        mListViewUsers.adapter = mAdapter
 
-        if (userID != null) {
-            DataBase.getUser(userID, object : OnGetDataListener {
+        if (jobID != null) {
+            DataBase.getJob(jobID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    mUser = dataSnapshot?.getValue(User::class.java)!!
+                    mJob = dataSnapshot?.getValue(Job::class.java)!!
+                    Log.i("mJobForApplicants", mJob.toString())
 
-                    if(mUser != null && mUser?.jobs != null){
-                        mUser?.jobs.forEach { jobId ->
-                            if (jobId != null) {
-                                DataBase.getJob(jobId, object : OnGetDataListener {
+                    if(mJob != null && mJob?.applicants != null){
+                        mJob?.applicants.forEach { userId ->
+
+                            if (userId != null) {
+                                DataBase.getUser(userId, object : OnGetDataListener {
                                     override fun onSuccess(dataSnapshot1: DataSnapshot?) {
-                                        var thisJob = dataSnapshot1?.getValue(Job::class.java)
-                                        if (!mJobIds.contains(jobId)) {
-                                            mJobIds.add(jobId)
-                                            mJobNames.add(thisJob!!.jobName)
+                                        var thisUser = dataSnapshot1?.getValue(User::class.java)
+                                        if (!mUserIds.contains(userId)) {
+                                            mUserIds.add(userId)
+                                            mUserNames.add(thisUser!!.userName)
 
                                             mAdapter.notifyDataSetChanged()
                                         }
@@ -88,14 +102,39 @@ class ViewUsersJobsActivity : AppCompatActivity() {
                         }
 
                         // attaching listener to listview
-                        mListViewJobs.onItemClickListener = AdapterView.OnItemClickListener { _, _, item, _ ->
+                        mListViewUsers.onItemClickListener = AdapterView.OnItemClickListener { _, _, item, _ ->
                             //getting the selected job
-                            val jobId = mJobIds[item]
-                            Log.i("onClickItemListenerJobs", jobId)
+                            val userId = mUserIds[item]
+                            val dialogClickListener =
+                                DialogInterface.OnClickListener { dialog, which ->
+                                    when (which) {
+                                        DialogInterface.BUTTON_POSITIVE -> {
+                                            mJob.assignedUserId = userId
+                                            DataBase.setJob(jobID, mJob)
+                                            DataBase.addJobToUser(jobID, userId)
+                                            val intent = Intent(applicationContext, ViewJobActivity::class.java)
+                                            intent.putExtra("JOBID", jobID)
+                                            startActivity(intent)
+                                        }
+                                        DialogInterface.BUTTON_NEGATIVE -> {
+                                            val intent = Intent(applicationContext, ViewAccountActivity::class.java)
+                                            intent.putExtra("USERID", userId)
+                                            startActivity(intent)
+                                        }
+                                    }
+                                }
 
-                            val intent = Intent(applicationContext, ViewJobActivity::class.java)
-                            intent.putExtra("JOBID", jobId)
-                            startActivity(intent)
+                            val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+                            builder.setMessage("View Account or Accept Application")
+                                .setPositiveButton("Accept", dialogClickListener)
+                                .setNegativeButton("View", dialogClickListener).show()
+                            if (mCurrentUserId == mJob.companyId) {
+
+                            } else {
+                                val intent = Intent(applicationContext, ViewAccountActivity::class.java)
+                                intent.putExtra("USERID", userId)
+                                startActivity(intent)
+                            }
                         }
                     }
                 }
@@ -154,4 +193,3 @@ class ViewUsersJobsActivity : AppCompatActivity() {
         }
     }
 }
-

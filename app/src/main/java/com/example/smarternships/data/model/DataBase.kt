@@ -1,9 +1,5 @@
 package com.example.smarternships.data.model
 
-import android.R
-import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
@@ -29,7 +25,6 @@ class DataBase {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
                     var user = dataSnapshot?.getValue(User::class.java)!!
                     user.jobs = user.jobs.plus(jobId).distinct()
-                    Log.d("addingJobToUser", user.jobs.toString())
                     setUser(userId, user)
                 }
                 override fun onStart() {}
@@ -40,9 +35,6 @@ class DataBase {
         fun removeJobFromUser(jobId: String, userId: String) {
             getUser(userId, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    var user = dataSnapshot?.getValue(User::class.java)!!
-                    user.jobs = user.jobs.filter { key: String -> key != jobId }
-                    setUser(userId, user)
 
                 }
                 override fun onStart() {}

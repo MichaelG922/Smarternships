@@ -95,7 +95,7 @@ class ViewJobActivity : AppCompatActivity() {
                             }
 
                             // if the current user is the owner let them manage the job
-                            if(mCurrentUserId == mJob.companyId && !mJob.completed) {
+                            if(mCurrentUserId == mJob.companyId) {
                                 mManageButton.visibility = View.VISIBLE
 
                                 if (mJob.assignedUserId == "") {
@@ -129,8 +129,8 @@ class ViewJobActivity : AppCompatActivity() {
 
         //show view with all applicants
         mApplicantsButton.setOnClickListener {
-            val intent = Intent(this, CompanyApplicantList::class.java)
-            intent.putExtra("APPLICANTS", arrayOf(mJob.applicants))
+            val intent = Intent(this, ViewApplicantsActivity::class.java)
+            intent.putExtra("JOBID", jobID)
             startActivity(intent)
         }
 

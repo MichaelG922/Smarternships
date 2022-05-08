@@ -18,7 +18,7 @@
             android:name=".ui.job.ViewJobsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.job.CompanyApplicantList"
+            android:name=".ui.job.ViewApplicantsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.account.EditAccountActivity"
