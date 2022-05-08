@@ -33,7 +33,7 @@ class MyJobsList : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.my_jobs_list)
 
-        mTextView = findViewById<View>(R.id.job_feed_view) as TextView
+//        mTextView = findViewById<View>(R.id.job_feed_view) as TextView
         mListViewJobs = findViewById<View>(R.id.listViewJobs) as ListView
 
         //List to store all jobs
