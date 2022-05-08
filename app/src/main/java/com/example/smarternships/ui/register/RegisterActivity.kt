@@ -13,7 +13,9 @@ import com.example.smarternships.databinding.ActivityRegisterBinding
 
 import com.example.smarternships.R
 import com.example.smarternships.ui.account.CreateAccountActivity
+import com.example.smarternships.ui.account.ViewAccountActivity
 import com.example.smarternships.ui.login.LoggedInUserView
+import com.example.smarternships.ui.login.LoginActivity
 import com.example.smarternships.ui.login.afterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -104,10 +106,27 @@ class RegisterActivity : AppCompatActivity() {
 
             create?.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString(),mAuth)
-                val intent_i = Intent(this@RegisterActivity, CreateAccountActivity::class.java)
+                val x = mAuth.createUserWithEmailAndPassword(username.text.toString(),password.text.toString())
+                x.addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        val intent = Intent(this@RegisterActivity, CreateAccountActivity::class.java)
+                        intent.putExtra("USERID", mAuth.currentUser!!.uid)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(
+                            applicationContext,
+                            "Error Creating Account Try Again",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val intent = Intent(applicationContext, RegisterActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+//                registerViewModel.register(username.text.toString(), password.text.toString(),confirmpass?.text.toString(),mAuth)
+//                val intent_i = Intent(this@RegisterActivity, CreateAccountActivity::class.java)
 
-                startActivity(intent_i)
+//                startActivity(intent_i)
             }
 }
 
