@@ -147,7 +147,6 @@ class ManageJobActivity: AppCompatActivity() {
 
 
         mUpdateJobButton.setOnClickListener {
-            //TODO: Bring to View Job Company View
             var mJobNameString = mJobNameField.text.toString()
             var mJobTimeFrameString = mJobTimeFrameField.text.toString()
             var mJobDescriptionString = mJobDescriptionField.text.toString()
