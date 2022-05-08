@@ -27,7 +27,6 @@ class RegisterDataSource {
         }
 
         try {
-            // TODO: handle loggedInUser authentication
             if(registerSuccess){
                 val user = RegisteredUser(username, password)
                 return Result.Success(user)
