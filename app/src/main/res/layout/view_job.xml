@@ -151,12 +151,23 @@
         android:id="@+id/manage_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/manage_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.86"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/view_applicants"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="620dp"
+        android:text="@string/applicants_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/loading"
