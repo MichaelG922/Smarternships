@@ -11,6 +11,8 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.text.Editable
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
@@ -25,6 +27,7 @@ import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.account.ViewAccountActivity
+import com.example.smarternships.ui.login.LoginActivity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.firebase.auth.FirebaseAuth
@@ -44,6 +47,7 @@ class ManageJobActivity: AppCompatActivity() {
     private lateinit var mCurrentInternField: EditText
     private lateinit var mDeleteButton: Button
     private lateinit var mFinishButton: Button
+    private lateinit var mCurrentUser: User
     private lateinit var mJob: Job
     private var mCurrentUserId: String? = null
 
@@ -103,6 +107,15 @@ class ManageJobActivity: AppCompatActivity() {
         // get the current user
         var auth = FirebaseAuth.getInstance()
         mCurrentUserId = auth.currentUser?.uid
+
+        DataBase.getUser(mCurrentUserId!!, object : OnGetDataListener {
+            override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                mCurrentUser = dataSnapshot?.getValue(User::class.java)!!
+                Log.i("LoggedInUserInfo", mCurrentUser.toString())
+            }
+            override fun onStart() {}
+            override fun onFailure() {}
+        })
 
         var mStartDate = "";
         var mEndDate = "";
@@ -223,6 +236,53 @@ class ManageJobActivity: AppCompatActivity() {
                 intent.putExtra("JOBID", jobID)
                 startActivity(intent)
             }
+        }
+    }
+
+
+    // Create Options Menu
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    // Process clicks on hamburger
+    override fun onMenuOpened(featureId: Int, menu: Menu): Boolean {
+        var menuItem = menu.findItem(R.id.action_job) as MenuItem
+        if (mCurrentUser.userType == "Intern") {
+            menuItem.title = "Find Jobs"
+        } else {
+            menuItem.title = "Create Job"
+        }
+        return false
+    }
+
+    // Process clicks on Options Menu items
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_job -> {
+                if (mCurrentUser.userType == "Intern") {
+                    Toast.makeText(applicationContext, "Redirect to View Jobs", Toast.LENGTH_SHORT).show()
+                } else {
+                    val intent = Intent(this, CreateJobActivity::class.java)
+                    startActivity(intent)
+                }
+                true
+            }
+            R.id.action_view_jobs -> {
+                Toast.makeText(applicationContext, "View Jobs", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                // force login again if they logout, dont let them go back
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                true
+            }
+            else -> false
         }
     }
 }

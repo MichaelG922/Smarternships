@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -14,6 +16,7 @@ import com.example.smarternships.data.model.Job
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.account.ViewAccountActivity
+import com.example.smarternships.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 
@@ -94,6 +97,10 @@ class ViewJobActivity : AppCompatActivity() {
                             // if the current user is the owner let them manage the job
                             if(mCurrentUserId == mJob.companyId) {
                                 mManageButton.visibility = View.VISIBLE
+
+                                if (mJob.assignedUserId == "") {
+                                    mApplicantsButton.visibility = View.VISIBLE
+                                }
                             }
                         }
                         override fun onStart() {}
@@ -151,6 +158,52 @@ class ViewJobActivity : AppCompatActivity() {
             }
 
             Toast.makeText(this, "Applied to Job!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Create Options Menu
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    // Process clicks on hamburger
+    override fun onMenuOpened(featureId: Int, menu: Menu): Boolean {
+        var menuItem = menu.findItem(R.id.action_job) as MenuItem
+        if (mCurrentUser.userType == "Intern") {
+            menuItem.title = "Find Jobs"
+        } else {
+            menuItem.title = "Create Job"
+        }
+        return false
+    }
+
+    // Process clicks on Options Menu items
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_job -> {
+                if (mCurrentUser.userType == "Intern") {
+                    Toast.makeText(applicationContext, "Redirect to View Jobs", Toast.LENGTH_SHORT).show()
+                } else {
+                    val intent = Intent(this, CreateJobActivity::class.java)
+                    startActivity(intent)
+                }
+                true
+            }
+            R.id.action_view_jobs -> {
+                Toast.makeText(applicationContext, "View Jobs", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                // force login again if they logout, dont let them go back
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                true
+            }
+            else -> false
         }
     }
 }
