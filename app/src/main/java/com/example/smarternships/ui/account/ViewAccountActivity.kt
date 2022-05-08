@@ -45,7 +45,7 @@ class ViewAccountActivity: AppCompatActivity() {
         val userID = e?.getString("USERID");
 
         if (userID != null) {
-            Toast.makeText(applicationContext, userID, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(applicationContext, userID, Toast.LENGTH_SHORT).show()
 
             DataBase.getUser(userID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
