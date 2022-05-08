@@ -115,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString(), mAuth)
 
+
                 val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
                 intent.putExtra("USERID", mAuth.currentUser!!.uid)
                 startActivity(intent)
