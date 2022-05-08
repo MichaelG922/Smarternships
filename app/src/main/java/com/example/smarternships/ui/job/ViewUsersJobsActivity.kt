@@ -1,49 +1,43 @@
-package com.example.smarternships.ui.account
+package com.example.smarternships.ui.job
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.example.smarternships.R
 import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.Job
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
-import com.example.smarternships.ui.job.CreateJobActivity
-import com.example.smarternships.ui.job.ViewJobsActivity
-import com.example.smarternships.ui.job.ViewUsersJobsActivity
 import com.example.smarternships.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 
-class EditAccountActivity : AppCompatActivity() {
-    private lateinit var mEditNameView: EditText
-    private lateinit var mEmailView: EditText
-    private lateinit var mDescriptionView: EditText
-    private lateinit var mSaveButton: Button
+class ViewUsersJobsActivity : AppCompatActivity() {
+
+    private lateinit var mListViewJobs : ListView
+    private lateinit var allJobIds: MutableList<String>
+    private lateinit var allJobNames: MutableList<String>
+    private lateinit var adapter: ArrayAdapter<String>
     private lateinit var mUser: User
     private lateinit var mCurrentUser: User
     private var mCurrentUserId: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_account)
+        setContentView(R.layout.my_jobs_list)
 
-        mEditNameView = findViewById<View>(R.id.edit_name) as EditText
-        mEmailView = findViewById<View>(R.id.edit_email) as EditText
-        mDescriptionView = findViewById<View>(R.id.edit_description) as EditText
+        mListViewJobs = findViewById<View>(R.id.listViewJobs) as ListView
 
-        mSaveButton = findViewById<View>(R.id.save_button) as Button
-
-        // get the user id of the user to display
         val i = intent
-        val e = i.extras
-        val userID = e?.getString("USERID")
+        val b = i.extras
+
+        val userID = b?.getString("USERID")
 
         // get the current user
         var auth = FirebaseAuth.getInstance()
@@ -58,67 +52,55 @@ class EditAccountActivity : AppCompatActivity() {
             override fun onFailure() {}
         })
 
-        if (userID != null) {
-            Toast.makeText(applicationContext, userID, Toast.LENGTH_SHORT).show()
+        //List to store all jobs
+        allJobIds = ArrayList()
+        allJobNames = ArrayList()
 
+        adapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            allJobNames
+        )
+        mListViewJobs.adapter = adapter
+
+        if (userID != null) {
             DataBase.getUser(userID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
                     mUser = dataSnapshot?.getValue(User::class.java)!!
-                    mEditNameView.setText(mUser.userName)
-                    mEmailView.setText(mUser.userEmail)
-                    mDescriptionView.setText(mUser.userDescription)
 
-                    if(mUser.userType == "Intern") {
-                        mDescriptionView.hint = "Resume"
-                    } else {
-                        mDescriptionView.hint = "Company Description"
+                    if(mUser != null && mUser?.jobs != null){
+                        mUser?.jobs.forEach { jobId ->
+                            if (jobId != null) {
+                                DataBase.getJob(jobId, object : OnGetDataListener {
+                                    override fun onSuccess(dataSnapshot1: DataSnapshot?) {
+                                        var thisJob = dataSnapshot1?.getValue(Job::class.java)
+
+                                        allJobIds.add(jobId)
+                                        allJobNames.add(thisJob!!.jobName)
+
+                                        adapter.notifyDataSetChanged()
+                                    }
+                                    override fun onStart() {}
+                                    override fun onFailure() {}
+                                })
+                            }
+                        }
+
+                        // attaching listener to listview
+                        mListViewJobs.onItemClickListener = AdapterView.OnItemClickListener { _, _, item, _ ->
+                            //getting the selected job
+                            val jobId = allJobIds[item]
+                            Log.i("onClickItemListenerJobs", jobId)
+
+                            val intent = Intent(applicationContext, ViewJobActivity::class.java)
+                            intent.putExtra("JOBID", jobId)
+                            startActivity(intent)
+                        }
                     }
                 }
                 override fun onStart() {}
                 override fun onFailure() {}
             })
-        }
-
-        mSaveButton.setOnClickListener {
-            var mNameString = mEditNameView.text.toString()
-            var mDescriptionString = mDescriptionView.text.toString()
-
-            if(mNameString.isEmpty() || mDescriptionString.isEmpty()) {
-                if (mNameString.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        "Empty Name Name Field not allowed!",
-                        Toast.LENGTH_SHORT
-                    ).show();
-                }
-
-                if (mDescriptionString.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        "Empty Description Field not allowed!",
-                        Toast.LENGTH_SHORT
-                    ).show();
-                }
-
-            }else{
-                if (userID != null) {
-                    DataBase.getUser(userID, object : OnGetDataListener {
-                        override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                            val user = dataSnapshot?.getValue(User::class.java)
-                            if (user != null) {
-                                user.userName = mNameString
-                                user.userDescription = mDescriptionString
-                                DataBase.setUser(userID, user)
-                            }
-                        }
-                        override fun onStart() {}
-                        override fun onFailure() {}
-                    })
-                }
-                val intent = Intent(this, ViewAccountActivity::class.java)
-                intent.putExtra("USERID", userID)
-                startActivity(intent)
-            }
         }
     }
 
@@ -137,7 +119,6 @@ class EditAccountActivity : AppCompatActivity() {
         } else {
             menuItem.title = "Create Job"
         }
-
         return false
     }
 
@@ -172,3 +153,4 @@ class EditAccountActivity : AppCompatActivity() {
         }
     }
 }
+

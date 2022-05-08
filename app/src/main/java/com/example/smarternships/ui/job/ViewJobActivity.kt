@@ -95,7 +95,7 @@ class ViewJobActivity : AppCompatActivity() {
                             }
 
                             // if the current user is the owner let them manage the job
-                            if(mCurrentUserId == mJob.companyId) {
+                            if(mCurrentUserId == mJob.companyId && !mJob.completed) {
                                 mManageButton.visibility = View.VISIBLE
 
                                 if (mJob.assignedUserId == "") {
@@ -184,7 +184,8 @@ class ViewJobActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_job -> {
                 if (mCurrentUser.userType == "Intern") {
-                    Toast.makeText(applicationContext, "Redirect to View Jobs", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ViewJobsActivity::class.java)
+                    startActivity(intent)
                 } else {
                     val intent = Intent(this, CreateJobActivity::class.java)
                     startActivity(intent)
@@ -192,7 +193,7 @@ class ViewJobActivity : AppCompatActivity() {
                 true
             }
             R.id.action_view_jobs -> {
-                val intent = Intent(this, ViewJobsActivity::class.java)
+                val intent = Intent(this, ViewUsersJobsActivity::class.java)
                 intent.putExtra("USERID", mCurrentUserId)
                 startActivity(intent)
                 true

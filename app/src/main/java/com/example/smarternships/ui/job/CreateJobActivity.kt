@@ -172,7 +172,8 @@ class CreateJobActivity: AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_job -> {
                 if (mCurrentUser.userType == "Intern") {
-                    Toast.makeText(applicationContext, "Redirect to View Jobs", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ViewJobsActivity::class.java)
+                    startActivity(intent)
                 } else {
                     val intent = Intent(this, CreateJobActivity::class.java)
                     startActivity(intent)
@@ -180,7 +181,7 @@ class CreateJobActivity: AppCompatActivity() {
                 true
             }
             R.id.action_view_jobs -> {
-                val intent = Intent(this, ViewJobsActivity::class.java)
+                val intent = Intent(this, ViewUsersJobsActivity::class.java)
                 intent.putExtra("USERID", mCurrentUserId)
                 startActivity(intent)
                 true

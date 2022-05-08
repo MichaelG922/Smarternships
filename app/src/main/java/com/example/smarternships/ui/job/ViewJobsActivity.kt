@@ -23,21 +23,14 @@ class ViewJobsActivity : AppCompatActivity() {
     private lateinit var allJobIds: MutableList<String>
     private lateinit var allJobNames: MutableList<String>
     private lateinit var adapter: ArrayAdapter<String>
-    private lateinit var mUser: User
     private lateinit var mCurrentUser: User
     private var mCurrentUserId: String? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.my_jobs_list)
 
         mListViewJobs = findViewById<View>(R.id.listViewJobs) as ListView
-
-        val i = intent
-        val b = i.extras
-
-        val userID = b?.getString("USERID")
 
         // get the current user
         var auth = FirebaseAuth.getInstance()
@@ -63,45 +56,34 @@ class ViewJobsActivity : AppCompatActivity() {
         )
         mListViewJobs.adapter = adapter
 
-        if (userID != null) {
-            DataBase.getUser(userID, object : OnGetDataListener {
-                override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    mUser = dataSnapshot?.getValue(User::class.java)!!
+        DataBase.getAllJobs(object : OnGetDataListener {
+            override fun onSuccess(dataSnapshot: DataSnapshot?) {
+                var jobs = dataSnapshot?.value!! as HashMap<String, Map<*, *>>
 
-                    if(mUser != null && mUser?.jobs != null){
-                        mUser?.jobs.forEach { jobId ->
-                            if (jobId != null) {
-                                DataBase.getJob(jobId, object : OnGetDataListener {
-                                    override fun onSuccess(dataSnapshot1: DataSnapshot?) {
-                                        var thisJob = dataSnapshot1?.getValue(Job::class.java)
-
-                                        allJobIds.add(jobId)
-                                        allJobNames.add(thisJob!!.jobName)
-
-                                        adapter.notifyDataSetChanged()
-                                    }
-                                    override fun onStart() {}
-                                    override fun onFailure() {}
-                                })
-                            }
-                        }
-
-                        // attaching listener to listview
-                        mListViewJobs.onItemClickListener = AdapterView.OnItemClickListener { _, _, item, _ ->
-                            //getting the selected job
-                            val jobId = allJobIds[item]
-                            Log.i("onClickItemListenerJobs", jobId)
-
-                            val intent = Intent(applicationContext, ViewJobActivity::class.java)
-                            intent.putExtra("JOBID", jobId)
-                            startActivity(intent)
-                        }
+                for ((jobId, job) in jobs) {
+                    // only show jobs that have not been assigned to a user
+                    if (job["assignedUserId"] as String == "") {
+                        allJobIds.add(jobId)
+                        allJobNames.add(job["jobName"] as String)
+                        adapter.notifyDataSetChanged()
                     }
                 }
-                override fun onStart() {}
-                override fun onFailure() {}
-            })
-        }
+
+                // attaching listener to listview
+                mListViewJobs.onItemClickListener = AdapterView.OnItemClickListener { _, _, item, _ ->
+                    //getting the selected job
+                    val jobId = allJobIds[item]
+
+                    val intent = Intent(applicationContext, ViewJobActivity::class.java)
+                    intent.putExtra("JOBID", jobId)
+                    startActivity(intent)
+                }
+
+            }
+            override fun onStart() {}
+            override fun onFailure() {}
+        })
+
     }
 
     // Create Options Menu
@@ -127,7 +109,8 @@ class ViewJobsActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_job -> {
                 if (mCurrentUser.userType == "Intern") {
-                    Toast.makeText(applicationContext, "Redirect to View Jobs", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ViewJobsActivity::class.java)
+                    startActivity(intent)
                 } else {
                     val intent = Intent(this, CreateJobActivity::class.java)
                     startActivity(intent)

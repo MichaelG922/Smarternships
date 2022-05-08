@@ -93,6 +93,21 @@ class DataBase {
                 }
             })
         }
+
+        fun getAllJobs(listener: OnGetDataListener) {
+            var jobs = FirebaseDatabase.getInstance().getReference("jobs")
+
+            listener.onStart()
+            jobs.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    listener.onSuccess(dataSnapshot);
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    listener.onFailure()
+                }
+            })
+        }
     }
 
 

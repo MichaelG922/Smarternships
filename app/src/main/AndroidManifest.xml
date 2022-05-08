@@ -12,16 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Smarternships">
         <activity
-            android:name=".ui.job.PriorJobsList"
+            android:name=".ui.job.ViewUsersJobsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.job.ViewJobsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.job.CompanyApplicantList"
-            android:exported="false" />
-        <activity
-            android:name=".ui.job.ViewJobsInternList"
             android:exported="false" />
         <activity
             android:name=".ui.account.EditAccountActivity"

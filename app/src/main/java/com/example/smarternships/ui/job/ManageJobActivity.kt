@@ -220,6 +220,7 @@ class ManageJobActivity: AppCompatActivity() {
         mFinishButton.setOnClickListener {
             if(mJob != null) {
                 mJob.completed = true
+                mJob.timeFrame = "Completed"
                 DataBase.setJob(jobID!!, mJob)
 
                 val intent = Intent(this, ViewJobActivity::class.java)
@@ -253,7 +254,8 @@ class ManageJobActivity: AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_job -> {
                 if (mCurrentUser.userType == "Intern") {
-                    Toast.makeText(applicationContext, "Redirect to View Jobs", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ViewJobsActivity::class.java)
+                    startActivity(intent)
                 } else {
                     val intent = Intent(this, CreateJobActivity::class.java)
                     startActivity(intent)
@@ -261,7 +263,7 @@ class ManageJobActivity: AppCompatActivity() {
                 true
             }
             R.id.action_view_jobs -> {
-                val intent = Intent(this, ViewJobsActivity::class.java)
+                val intent = Intent(this, ViewUsersJobsActivity::class.java)
                 intent.putExtra("USERID", mCurrentUserId)
                 startActivity(intent)
                 true
