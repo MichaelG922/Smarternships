@@ -53,7 +53,7 @@
     <string name="prior_jobs">Prior Jobs</string>
     <string name="account_title">Account</string>
     <string name="edit_button">Edit</string>
-    <string name="my_jobs_string">My Jobs</string>
+    <string name="jobs_string">Jobs</string>
     <string name="current_intern">Current Intern</string>
     <string name="del_button">Del</string>
     <string name="save_button">Save</string>

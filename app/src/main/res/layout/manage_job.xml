@@ -126,7 +126,7 @@
         android:layout_marginTop="112dp"
         android:text="@string/manage_job_header"
         android:textAllCaps="true"
-        android:textSize="16dp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

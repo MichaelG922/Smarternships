@@ -30,7 +30,7 @@
         android:layout_marginTop="110dp"
         android:text="@string/setup_string"
         android:textAllCaps="false"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         android:layout_marginTop="204dp"
         android:text="@string/who_string"
         android:textAllCaps="false"
-        android:textSize="24sp"
+        android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
