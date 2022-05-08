@@ -5,5 +5,5 @@ data class User(
     val userEmail: String  = "",
     var userDescription: String  = "",
     val userType: String = "",
-    var jobs: List<String> = listOf("test1", "test2"),
+    var jobs: List<String> = listOf(),
 )
