@@ -18,7 +18,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.smarternships.databinding.ActivityLoginBinding
 
 import com.example.smarternships.R
+import com.example.smarternships.data.Result
 import com.example.smarternships.data.model.DataBase
+import com.example.smarternships.data.model.LoggedInUser
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.account.CreateAccountActivity
@@ -26,6 +28,7 @@ import com.example.smarternships.ui.account.ViewAccountActivity
 import com.example.smarternships.ui.register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -113,11 +116,31 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString(), mAuth)
+//                loginViewModel.login(username.text.toString(), password.text.toString(), mAuth)
 
-                val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
-                intent.putExtra("USERID", mAuth.currentUser!!.uid)
-                startActivity(intent)
+                // handle login
+                mAuth.signInWithEmailAndPassword(username.text.toString(),password.text.toString())
+                    .addOnCompleteListener { task ->
+                        Log.i("TEST LOGIN", "${task.isSuccessful}")
+                        if(task.isSuccessful){
+                            val intent = Intent(this@LoginActivity, ViewAccountActivity::class.java)
+                            intent.putExtra("USERID", mAuth.currentUser!!.uid)
+                            startActivity(intent)
+                        }else{
+                            Toast.makeText(
+                                applicationContext,
+                                "Invalid Login Credentials were wrong",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            val intent = Intent(applicationContext, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+
+
+
+
             }
 
             //enables create button, opens registering activity
