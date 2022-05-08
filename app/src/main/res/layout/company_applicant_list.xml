@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
-        android:text="Applicants"
+        android:text="@string/applicants"
         android:textAllCaps="true"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
