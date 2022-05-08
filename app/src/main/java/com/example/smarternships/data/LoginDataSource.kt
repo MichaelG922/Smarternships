@@ -21,7 +21,6 @@ class LoginDataSource {
             }
 
         try {
-            // TODO: handle loggedInUser authentication
                 if(logInSuccess){
                     val user = LoggedInUser(password, username)
                     return Result.Success(user)
@@ -34,6 +33,5 @@ class LoginDataSource {
     }
 
     fun logout() {
-        // TODO: revoke authentication
     }
 }
