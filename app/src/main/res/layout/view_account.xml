@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
         android:autofillHints="@string/prompt_create_job_name"
-        android:hint="Name"
+        android:hint="@string/name"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="216dp"
         android:autofillHints="@string/prompt_create_job_name"
-        android:hint="Email"
+        android:hint="@string/email"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
@@ -44,29 +44,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/currentJobs"
+        android:id="@+id/all_jobs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
-        android:layout_marginRight="110dp"
+        android:layout_marginEnd="110dp"
         android:autofillHints="@string/prompt_create_job_name"
-        android:text="Current Jobs"
-        android:clickable="false"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/priorJobs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:layout_marginRight="110dp"
-        android:autofillHints="@string/prompt_create_job_name"
-        android:text="Prior Jobs"
+        android:text="@string/all_jobs"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
@@ -76,23 +60,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/viewPriorJobs"
-        android:layout_width="87dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:text="View"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
-
-    <Button
-        android:id="@+id/viewCurrentJobs"
+        android:id="@+id/view_all_jobs"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
-        android:text="View"
+        android:text="@string/view_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,10 +73,10 @@
 
     <EditText
         android:id="@+id/description"
-        android:layout_height="200dp"
+        android:layout_height="275dp"
         android:layout_width="0dp"
-        android:layout_marginTop="400dp"
-        android:hint="Description"
+        android:layout_marginTop="350dp"
+        android:hint="@string/prompt_create_job_description"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
@@ -130,9 +102,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
-        android:text="Account"
+        android:text="@string/account_title"
         android:textAllCaps="true"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +128,7 @@
         android:id="@+id/edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:text="@string/edit_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

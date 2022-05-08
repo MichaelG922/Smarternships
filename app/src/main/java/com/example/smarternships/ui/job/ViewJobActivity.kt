@@ -31,6 +31,8 @@ class ViewJobActivity : AppCompatActivity() {
     private lateinit var mJob: Job
     private lateinit var mCurrentUser: User
     private var mCurrentUserId: String? = null
+    private lateinit var mApplicantsButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +47,12 @@ class ViewJobActivity : AppCompatActivity() {
         mViewCompany = findViewById<View>(R.id.view_company) as Button
         mApplyButton = findViewById<View>(R.id.apply_button) as Button
         mManageButton = findViewById<View>(R.id.manage_button) as Button
+        mApplicantsButton = findViewById<View>(R.id.view_applicants) as Button
 
         mApplyButton.visibility = View.INVISIBLE
         mManageButton.visibility = View.INVISIBLE
         mViewIntern.visibility = View.INVISIBLE
+        mApplicantsButton.visibility = View.INVISIBLE
 
         val i = intent
         val b = i.extras
@@ -114,6 +118,13 @@ class ViewJobActivity : AppCompatActivity() {
                 override fun onStart() {}
                 override fun onFailure() {}
             })
+        }
+
+        //show view with all applicants
+        mApplicantsButton.setOnClickListener {
+            val intent = Intent(this, CompanyApplicantList::class.java)
+            intent.putExtra("APPLICANTS", arrayOf(mJob.applicants))
+            startActivity(intent)
         }
 
         mViewCompany.setOnClickListener {

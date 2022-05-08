@@ -22,6 +22,7 @@
     <string name="who_string">Who are you?</string>
     <string name="intern_button">Intern</string>
     <string name="employer_button">Employer</string>
+
     <!-- Strings Related to Company Job Creation   <>-->
     <string name="create_job_header">Create Job</string>
     <string name="choose_time_button">Time Frame</string>
@@ -30,6 +31,7 @@
     <string name="prompt_create_job_description">Job Description</string>
     <string name="create_job_button">Create Job</string>
     <string name="apply_string">Apply</string>
+
     <!-- Strings Related to Company Job Managing  <>-->
     <string name="manage_job_header">Manage Job</string>
     <string name="prompt_manage_job_name">Job Name</string>
@@ -37,5 +39,32 @@
     <string name="prompt_manage_job_timeframe">Job Time Frame</string>
     <string name="prompt_manage_job_description">Job Description</string>
     <string name="create_manage_button">Create Job</string>
+    <string name="action_find_job">Find/Create Job</string>
+    <string name="action_view_jobs">View My Jobs</string>
+    <string name="available_jobs">Available Jobs</string>
+    <string name="company_name">Company Name</string>
+    <string name="view_button">View</string>
+    <string name="intern_namenone_hint">Intern Name/None</string>
+    <string name="time_frame">Time Frame</string>
+    <string name="manage_button">Manage</string>
+    <string name="applicants_button">Applicants</string>
+    <string name="view_job_title">View Job</string>
+    <string name="all_jobs">All Jobs</string>
+    <string name="prior_jobs">Prior Jobs</string>
+    <string name="account_title">Account</string>
+    <string name="edit_button">Edit</string>
+    <string name="my_jobs_string">My Jobs</string>
+    <string name="current_intern">Current Intern</string>
+    <string name="del_button">Del</string>
+    <string name="save_button">Save</string>
+    <string name="finish_button">Finish</string>
+    <string name="delete">Delete</string>
+    <string name="user_or_company_name">User or Company Name</string>
+    <string name="description">Description</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="name">name</string>
+    <string name="email">Email</string>
+    <string name="continue_str">Continue</string>
+    <string name="applicants">Applicants</string>
 
 </resources>

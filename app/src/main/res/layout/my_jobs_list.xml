@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
-        android:text="My Jobs"
+        android:text="@string/my_jobs_string"
         android:textAllCaps="true"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,13 +43,10 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="86dp">
 
-        <TextView
-            android:id="@+id/job_feed_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="150dp"
-            android:inputType="none" />
+        <ListView
+            android:id="@+id/listViewJobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

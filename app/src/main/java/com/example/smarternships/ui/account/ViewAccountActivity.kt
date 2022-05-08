@@ -17,14 +17,14 @@ import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.job.CreateJobActivity
 import com.example.smarternships.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.example.smarternships.ui.job.MyJobsList
 import com.google.firebase.database.DataSnapshot
 
 class ViewAccountActivity: AppCompatActivity() {
     private lateinit var mTextName: EditText
     private lateinit var mTextEmail: EditText
     private lateinit var mTextDescription: EditText
-    private lateinit var mViewCurrentJobs: Button
-    private lateinit var mViewPriorJobs: Button
+    private lateinit var mViewAllJobs: Button
     private lateinit var mEditButton: Button
     private lateinit var mUser: User
     private lateinit var mCurrentUser: User
@@ -37,9 +37,8 @@ class ViewAccountActivity: AppCompatActivity() {
         mTextName = findViewById<View>(R.id.name) as EditText
         mTextEmail = findViewById<View>(R.id.email) as EditText
         mTextDescription = findViewById<View>(R.id.description) as EditText
+        mViewAllJobs = findViewById<View>(R.id.view_all_jobs) as Button
 
-        mViewCurrentJobs = findViewById<View>(R.id.viewCurrentJobs) as Button
-        mViewPriorJobs = findViewById<View>(R.id.viewPriorJobs) as Button
         mEditButton = findViewById<View>(R.id.edit_button) as Button
 
         mEditButton.visibility = View.INVISIBLE
@@ -82,14 +81,11 @@ class ViewAccountActivity: AppCompatActivity() {
             })
         }
 
-        mViewCurrentJobs.setOnClickListener {
-            // TODO redirect to current jobs
-            Toast.makeText(applicationContext, "Redirect to users Current Jobs", Toast.LENGTH_SHORT).show()
-        }
-
-        mViewPriorJobs.setOnClickListener {
-            // TODO redirect to prior jobs
-            Toast.makeText(applicationContext, "Redirect to users Prior Jobs", Toast.LENGTH_SHORT).show()
+        mViewAllJobs.setOnClickListener {
+            Toast.makeText(applicationContext, "Redirect to all Jobs", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,MyJobsList::class.java)
+            intent.putExtra("USERID",userID)
+            startActivity(intent)
         }
 
         // send the user to edit account page

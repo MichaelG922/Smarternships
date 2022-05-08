@@ -18,7 +18,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import com.example.smarternships.R
-import com.example.smarternships.databinding.ActivityRegisterBinding
 import com.example.smarternships.data.model.Job
 import com.google.android.material.datepicker.MaterialDatePicker
 import androidx.core.util.Pair
