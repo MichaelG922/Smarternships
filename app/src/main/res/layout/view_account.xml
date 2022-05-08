@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/currentJobs"
+        android:id="@+id/all_jobs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/viewCurrentJobs"
+        android:id="@+id/view_all_jobs"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="276dp"
