@@ -15,6 +15,7 @@ import com.example.smarternships.data.model.DataBase
 import com.example.smarternships.data.model.OnGetDataListener
 import com.example.smarternships.data.model.User
 import com.example.smarternships.ui.job.CreateJobActivity
+import com.example.smarternships.ui.job.MyJobsList
 import com.google.firebase.database.DataSnapshot
 
 
@@ -23,7 +24,6 @@ class ViewAccountActivity: AppCompatActivity() {
     private lateinit var mTextEmail: EditText
     private lateinit var mTextDescription: EditText
     private lateinit var mViewAllJobs: Button
-    private lateinit var mViewPriorJobs: Button
     private lateinit var mEditButton: Button
     private lateinit var mUser: User
 
@@ -70,11 +70,10 @@ class ViewAccountActivity: AppCompatActivity() {
         // TODO setup check to see if user being viewed is the logged in user. If it is not then disable and hide edit button
 
         mViewAllJobs.setOnClickListener {
-            Toast.makeText(applicationContext, "Redirect to users Current Jobs", Toast.LENGTH_SHORT).show()
-        }
-
-        mViewPriorJobs.setOnClickListener {
-            Toast.makeText(applicationContext, "Redirect to users Prior Jobs", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Redirect to all Jobs", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,MyJobsList::class.java)
+            intent.putExtra("USERID",userID)
+            startActivity(intent)
         }
 
         mEditButton.setOnClickListener {
