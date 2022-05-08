@@ -49,7 +49,9 @@ class DataBase {
 
                     var user = dataSnapshot?.getValue(User::class.java)!!
                     if(user.jobs.indexOf(jobId) != -1) {
-                        user.jobs = user.jobs.filter { it != jobId }
+                        user.jobs = user.jobs.toMutableList().apply {
+                            removeAt(user.jobs.indexOf(jobId))
+                        }
                         setUser(userId, user)
                         Log.i("USER-JOB Success", "Successfully to remove job from user")
                     }
