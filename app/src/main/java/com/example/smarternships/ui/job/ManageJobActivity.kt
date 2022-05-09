@@ -1,5 +1,7 @@
 package com.example.smarternships.ui.job
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.widget.Button
 
 import android.content.Intent
@@ -219,14 +221,29 @@ class ManageJobActivity: AppCompatActivity() {
 
         mFinishButton.setOnClickListener {
             if(mJob != null) {
-                mJob.completed = true
-                mJob.timeFrame = "Completed"
-                DataBase.setJob(jobID!!, mJob)
 
-                val intent = Intent(this, ViewJobActivity::class.java)
-                intent.putExtra("JOBID", jobID)
-                startActivity(intent)
-                finish()
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { dialog, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                mJob.completed = true
+                                mJob.timeFrame = "Completed"
+                                DataBase.setJob(jobID!!, mJob)
+
+                                val intent = Intent(this, ViewJobActivity::class.java)
+                                intent.putExtra("JOBID", jobID)
+                                startActivity(intent)
+                                finish()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+
+                            }
+                        }
+                    }
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder.setMessage("Are you sure you want to mark this job as complete?")
+                    .setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("Cancel", dialogClickListener).show()
             }
         }
     }
