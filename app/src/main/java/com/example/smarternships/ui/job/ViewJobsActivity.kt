@@ -62,9 +62,11 @@ class ViewJobsActivity : AppCompatActivity() {
                 for ((jobId, job) in jobs) {
                     // only show jobs that have not been assigned to a user
                     if (job["assignedUserId"] as String == "") {
-                        allJobIds.add(jobId)
-                        allJobNames.add(job["jobName"] as String)
-                        adapter.notifyDataSetChanged()
+                        if (!allJobIds.contains(jobId)) {
+                            allJobIds.add(jobId)
+                            allJobNames.add(job["jobName"] as String)
+                            adapter.notifyDataSetChanged()
+                        }
                     }
                 }
 
