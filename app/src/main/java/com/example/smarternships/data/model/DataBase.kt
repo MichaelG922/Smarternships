@@ -34,16 +34,6 @@ class DataBase {
         }
 
         fun removeJobFromUser(jobId: String, userId: String) {
-//            var users = FirebaseDatabase.getInstance().getReference("users")
-//            var user = users.child(userId)
-//            var jobs = FirebaseDatabase.getInstance().getReference("jobs")
-//            var job = jobs.child(jobId)
-//
-//            if(user){
-//
-//            }
-
-
             getUser(userId, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
 
@@ -59,19 +49,6 @@ class DataBase {
                 override fun onStart() {}
                 override fun onFailure() {
                     Log.i("USER-JOB ERR", "Failed to remove job from user")
-                }
-            })
-            getJob(jobId, object : OnGetDataListener {
-                override fun onSuccess(dataSnapshot: DataSnapshot?) {
-                    var job = dataSnapshot?.getValue(Job::class.java)!!
-                    job.assignedUserId =  ""
-                    setJob(jobId, job)
-                    Log.i("USER-JOB Success", "Successfully to remove user from job")
-
-                }
-                override fun onStart() {}
-                override fun onFailure() {
-                    Log.i("USER-JOB ERR", "Failed to remove user from job")
                 }
             })
         }

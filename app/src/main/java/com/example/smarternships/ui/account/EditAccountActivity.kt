@@ -59,8 +59,6 @@ class EditAccountActivity : AppCompatActivity() {
         })
 
         if (userID != null) {
-            Toast.makeText(applicationContext, userID, Toast.LENGTH_SHORT).show()
-
             DataBase.getUser(userID, object : OnGetDataListener {
                 override fun onSuccess(dataSnapshot: DataSnapshot?) {
                     mUser = dataSnapshot?.getValue(User::class.java)!!

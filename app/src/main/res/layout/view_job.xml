@@ -98,18 +98,18 @@
 
     <EditText
         android:id="@+id/description"
-        android:layout_height="200dp"
-        android:layout_width="0dp"
+        android:layout_width="379dp"
+        android:layout_height="165dp"
         android:layout_marginTop="400dp"
-        android:hint="@string/prompt_create_job_description"
-        android:gravity="top|start"
         android:clickable="false"
         android:cursorVisible="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:gravity="top|start"
+        android:hint="@string/prompt_create_job_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -152,17 +152,16 @@
         android:text="@string/manage_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.354"
-        app:layout_constraintStart_toEndOf="@+id/view_applicants" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/view_applicants"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
         android:text="@string/applicants_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
