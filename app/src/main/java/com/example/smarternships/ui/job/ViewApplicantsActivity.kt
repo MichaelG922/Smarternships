@@ -105,31 +105,30 @@ class ViewApplicantsActivity : AppCompatActivity() {
                         mListViewUsers.onItemClickListener = AdapterView.OnItemClickListener { _, _, item, _ ->
                             //getting the selected job
                             val userId = mUserIds[item]
-                            val dialogClickListener =
-                                DialogInterface.OnClickListener { dialog, which ->
-                                    when (which) {
-                                        DialogInterface.BUTTON_POSITIVE -> {
-                                            mJob.assignedUserId = userId
-                                            DataBase.setJob(jobID, mJob)
-                                            DataBase.addJobToUser(jobID, userId)
-                                            val intent = Intent(applicationContext, ViewJobActivity::class.java)
-                                            intent.putExtra("JOBID", jobID)
-                                            startActivity(intent)
-                                        }
-                                        DialogInterface.BUTTON_NEGATIVE -> {
-                                            val intent = Intent(applicationContext, ViewAccountActivity::class.java)
-                                            intent.putExtra("USERID", userId)
-                                            startActivity(intent)
+
+                            if (mCurrentUserId == mJob.companyId) {
+                                val dialogClickListener =
+                                    DialogInterface.OnClickListener { dialog, which ->
+                                        when (which) {
+                                            DialogInterface.BUTTON_POSITIVE -> {
+                                                mJob.assignedUserId = userId
+                                                DataBase.setJob(jobID, mJob)
+                                                DataBase.addJobToUser(jobID, userId)
+                                                val intent = Intent(applicationContext, ViewJobActivity::class.java)
+                                                intent.putExtra("JOBID", jobID)
+                                                startActivity(intent)
+                                            }
+                                            DialogInterface.BUTTON_NEGATIVE -> {
+                                                val intent = Intent(applicationContext, ViewAccountActivity::class.java)
+                                                intent.putExtra("USERID", userId)
+                                                startActivity(intent)
+                                            }
                                         }
                                     }
-                                }
-
-                            val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
-                            builder.setMessage("View Account or Accept Application")
-                                .setPositiveButton("Accept", dialogClickListener)
-                                .setNegativeButton("View", dialogClickListener).show()
-                            if (mCurrentUserId == mJob.companyId) {
-
+                                val builder: AlertDialog.Builder = AlertDialog.Builder(mContext)
+                                builder.setMessage("View Account or Accept Application")
+                                    .setPositiveButton("Accept", dialogClickListener)
+                                    .setNegativeButton("View", dialogClickListener).show()
                             } else {
                                 val intent = Intent(applicationContext, ViewAccountActivity::class.java)
                                 intent.putExtra("USERID", userId)

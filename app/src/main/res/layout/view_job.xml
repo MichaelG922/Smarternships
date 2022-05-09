@@ -46,7 +46,7 @@
         android:id="@+id/view_company"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="212dp"
         android:text="@string/view_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -73,7 +73,7 @@
         android:id="@+id/view_intern"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="274dp"
         android:text="@string/view_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -98,6 +98,7 @@
 
     <EditText
         android:id="@+id/description"
+        android:layout_width="0dp"
         android:layout_height="165dp"
         android:layout_marginTop="400dp"
         android:clickable="false"
@@ -108,7 +109,7 @@
         android:hint="@string/prompt_create_job_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"  />
 
     <ImageView
         android:id="@+id/imageView2"
