@@ -98,7 +98,6 @@
 
     <EditText
         android:id="@+id/description"
-        android:layout_width="379dp"
         android:layout_height="165dp"
         android:layout_marginTop="400dp"
         android:clickable="false"
